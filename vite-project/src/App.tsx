@@ -89,9 +89,9 @@ function App(){
   const [sliderx1, setSliderx1] = useState<number>(200);
   const [slidery1, setSlidery1] = useState<number>(200);
   const [active, setActive] = useState<boolean>(false);
-  const selectedColor = useRef();
-  const canvasAll = useRef();
-  const canvasWebgl = useRef();
+  const selectedColor = React.useRef<HTMLDivElement>(null);
+  const canvasAll = React.useRef<HTMLCanvasElement>(null);
+  const canvasWebgl = React.useRef<HTMLCanvasElement>(null);
   const [ctx,setCtx]= useState<any>();
   useEffect(() => {
     setCtx(init())
@@ -105,11 +105,9 @@ function App(){
    fontSize,shadowBlur,shadowOffsetY,shadowColor,shadowOffsetX,
   ]);
   function init(){
-    let canvas: any = canvasAll.current;
-        if (canvas.getContext) {
-          let ctx = canvas.getContext("2d");
+    let canvas = canvasAll.current;
+          let ctx = canvas?.getContext("2d");
           return ctx;
-        }
   }
   return (
     <div className="all">

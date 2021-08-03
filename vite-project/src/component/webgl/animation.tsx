@@ -1,6 +1,6 @@
 import React , { useEffect } from 'react';
 interface childProps{
-  canvasWebgl: React.MutableRefObject<undefined>;
+  canvasWebgl: React.RefObject<HTMLCanvasElement>;
 }
 const  AnimationDraw:React.FC<childProps>=(props)=> {
     const {canvasWebgl}=props;

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 interface childProps {
-  canvasAll: React.MutableRefObject<undefined>;
+  canvasAll: React.RefObject<HTMLCanvasElement>;
   rotate: number;
   globalAlpha: number;
   color: string;
@@ -83,8 +83,10 @@ const TextContent: React.FC<childProps> = (props) => {
     changeTurn("text");
     let canvas: any = canvasAll.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.translate(canvas.width / 2, canvas.height / 2);
+    ctx.save();
+    ctx.translate(sliderx1, slidery1);
     ctx.rotate((rotate * Math.PI) / 180);
+    ctx.translate(-sliderx1, -slidery1);
     ctx.globalAlpha = globalAlpha;
     ctx.fillStyle = color;
     ctx.shadowOffsetX = shadowOffsetX;
@@ -97,8 +99,7 @@ const TextContent: React.FC<childProps> = (props) => {
     ctx.textAlign = textAlign;
     ctx.globalCompositeOperation = operation;
     ctx.fillText(textContent, sliderx1, slidery1);
-    ctx.rotate((-rotate * Math.PI) / 180);
-    ctx.translate(-canvas.width / 2, -canvas.height / 2);
+    ctx.restore();
   }
   return (
     <div>

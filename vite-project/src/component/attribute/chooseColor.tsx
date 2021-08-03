@@ -1,7 +1,7 @@
 import React,{useEffect, useMemo} from 'react';
 interface childProps{
-  canvasAll: React.MutableRefObject<undefined>;
-  selectedColor: React.MutableRefObject<undefined>;
+  canvasAll: React.RefObject<HTMLCanvasElement>;
+  selectedColor: React.RefObject<HTMLDivElement>;
   changeActive:Function,
   changeColor:Function,
   active:boolean;

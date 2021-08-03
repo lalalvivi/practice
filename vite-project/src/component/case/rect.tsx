@@ -1,7 +1,7 @@
 import React , { useContext,useEffect,useState,useCallback } from 'react';
 import { MouseControl } from '../control/mouseControl';
 interface childProps{
-    canvasAll:React.MutableRefObject<undefined>,
+    canvasAll:React.RefObject<HTMLCanvasElement>,
     rotate:number,
     ctx:any,
     globalAlpha:number,
