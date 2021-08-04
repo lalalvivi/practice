@@ -29,10 +29,12 @@ const  Rect:React.FC<childProps>=(props)=> {
     const [left, setLeft] = useState<number>(200);
   const [top, setTop] = useState<number>(200);
   const [reUse, setReUse] = useState<boolean>(false);
+  const [scale, setScale] = useState<number>(1);
   const changeReUse=useCallback((code:boolean) => {setReUse(code)},[],);
   const changeLeft=useCallback((code:number) => {setLeft(code)},[],);
   const changeTop=useCallback((code:number) => {setTop(code)},[],);
-    useEffect(() => {
+  const changeScale=useCallback((code:number) => {setScale(code)},[],);
+  useEffect(() => {
       if(turn==='rect'){ draw()}
         //处理异步数据
       }, [
@@ -87,7 +89,7 @@ const  Rect:React.FC<childProps>=(props)=> {
           ctx.restore();
           let x=left,y=top;
           let isTransparent=true;
-          MouseControl('rect',changeLeft,changeTop,canvas,ctx,rotate,sw,sh,x,y,isTransparent);
+          MouseControl('rect',changeScale,changeLeft,changeTop,canvas,ctx,rotate,sw,sh,x,y,isTransparent);
   }
     return (
         <div>

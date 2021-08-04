@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
+import { drawBorder } from "../control/imgRender";
 import {MouseControl} from "../control/mouseControl";
 interface childProps {
   canvasAll: React.RefObject<HTMLCanvasElement>;
@@ -49,8 +50,10 @@ const ImgContent: React.FC<childProps> = (props) => {
   } = props;
   const [left, setLeft] = useState<number>(200);
   const [top, setTop] = useState<number>(200);
+  const [scale, setScale] = useState<number>(1);
   const changeLeft=useCallback((code:number) => {setLeft(code)},[],);
   const changeTop=useCallback((code:number) => {setTop(code)},[],);
+  const changeScale=useCallback((code:number) => {setScale(code)},[],);
   useEffect(() => {
     if (turn === "img") {
       draw();
@@ -87,8 +90,8 @@ const ImgContent: React.FC<childProps> = (props) => {
       function drawImage() {
         var w=img.width;
         var h=img.height;
-        var sw = w * scaleSlider;
-        var sh = h * scaleSlider;
+        var sw = w * scaleSlider*scale;
+        var sh = h * scaleSlider*scale;
         ctx.globalCompositeOperation = operation;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.save();
@@ -99,7 +102,7 @@ const ImgContent: React.FC<childProps> = (props) => {
         ctx.restore();
         let x=left,y=top;
         let isTransparent=false;
-        MouseControl('img',changeLeft,changeTop,canvas,ctx,rotate,sw,sh,x,y,isTransparent,sliderx,slidery,w,h,img);
+        MouseControl('img',changeScale,changeLeft,changeTop,canvas,ctx,rotate,sw,sh,x,y,isTransparent,sliderx,slidery,w,h,scaleSlider,img);
       }
       img.crossOrigin = "anonymous";
       img.src = imgContent;

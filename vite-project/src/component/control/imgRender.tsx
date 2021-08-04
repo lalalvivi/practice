@@ -98,7 +98,7 @@ import React , { useContext,useEffect,useState,useCallback } from 'react';
     }
     return xcount;
   };
-    //control定位区域
+    //control控制器定位区域
     function controlPosition(coords:any,points:any){
       let lines=getImageLines(coords);
       let point=points;
@@ -120,6 +120,7 @@ import React , { useContext,useEffect,useState,useCallback } from 'react';
        }
        return _isTransparent;
        }
+    //  选中后边框  
        function drawBorder(ctx:any,rotate:number,x:number,y:number,sw:number,sh:number){
         ctx.save();
         ctx.translate(x+sw/2,y+sh/2);
@@ -151,9 +152,11 @@ import React , { useContext,useEffect,useState,useCallback } from 'react';
         control(sw+x+5, y+sh+5, 10, 10,ctx);  
         ctx.restore()
       }
+      // 控制器绘制
       function control(ax:number,ay:number,w:number,h:number,ctx:any){
         ctx.fillRect( ax, ay, w, h)
       }
+      // 图片绘制
       function drawImg(canvas:any,img:HTMLImageElement,ctx:any,rotate:number,x:number,y:number,sw:number,sh:number,
         sliderx:number, slidery:number,w:number,h:number) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -164,6 +167,7 @@ import React , { useContext,useEffect,useState,useCallback } from 'react';
         ctx.drawImage(img, sliderx, slidery, w, h, x,y, sw, sh,);
         ctx.restore()
   }
+  // 矩形绘制
   function drawRect(canvas:any,ctx:any,rotate:number,x:number,y:number,sw:number,sh:number
     ) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
