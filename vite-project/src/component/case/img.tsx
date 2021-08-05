@@ -50,10 +50,14 @@ const ImgContent: React.FC<childProps> = (props) => {
   } = props;
   const [left, setLeft] = useState<number>(200);
   const [top, setTop] = useState<number>(200);
-  const [scale, setScale] = useState<number>(1);
+  const [scaleX, setScaleX] = useState<number>(1);
+  const [scaleY, setScaleY] = useState<number>(1);
+  const [controlRotate, setControlRotate] = useState<number>(0);
   const changeLeft=useCallback((code:number) => {setLeft(code)},[],);
   const changeTop=useCallback((code:number) => {setTop(code)},[],);
-  const changeScale=useCallback((code:number) => {setScale(code)},[],);
+  const changeScaleX=useCallback((code:number) => {setScaleX(code)},[],);
+  const changeScaleY=useCallback((code:number) => {setScaleY(code)},[],);
+  const changeControlRotate=useCallback((code:number) => {setControlRotate(code)},[],);
   useEffect(() => {
     if (turn === "img") {
       draw();
@@ -90,19 +94,20 @@ const ImgContent: React.FC<childProps> = (props) => {
       function drawImage() {
         var w=img.width;
         var h=img.height;
-        var sw = w * scaleSlider*scale;
-        var sh = h * scaleSlider*scale;
+        var sw = w * scaleSlider*scaleX;
+        var sh = h * scaleSlider*scaleY;
         ctx.globalCompositeOperation = operation;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.save();
         ctx.translate(left+sw/2, top+sh/2);
-        ctx.rotate((rotate * Math.PI) / 180);
+        ctx.rotate(((rotate+controlRotate) * Math.PI) / 180);
         ctx.translate(-left-sw/2, -top-sh/2);
         ctx.drawImage(img, sliderx, slidery, w, h, left, top, sw, sh);
         ctx.restore();
         let x=left,y=top;
         let isTransparent=false;
-        MouseControl('img',changeScale,changeLeft,changeTop,canvas,ctx,rotate,sw,sh,x,y,isTransparent,sliderx,slidery,w,h,scaleSlider,img);
+        let howRotate='center';
+        MouseControl('img',changeControlRotate,changeScaleX,changeScaleY,changeLeft,changeTop,canvas,ctx,rotate+controlRotate,sw,sh,x,y,isTransparent,sliderx,slidery,w,h,scaleSlider,howRotate,img);
       }
       img.crossOrigin = "anonymous";
       img.src = imgContent;

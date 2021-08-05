@@ -103,7 +103,6 @@ const TextContent: React.FC<childProps> = (props) => {
   }
   return (
     <div>
-      
       <input
         type="text"
         id="text"
@@ -112,9 +111,9 @@ const TextContent: React.FC<childProps> = (props) => {
         onChange={(e) => changeTextContent(e.target.value)}
       ></input>
       <div>
-      <button type="button" onClick={draw}>
-        添加文字
-      </button>
+        <button type="button" onClick={draw}>
+          添加文字
+        </button>
       </div>
     </div>
   );
