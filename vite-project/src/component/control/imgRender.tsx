@@ -189,10 +189,9 @@ function drawImg(
 ) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.save();
-  // ctx.translate(x+sw/2,y+sh/2);
-  // ctx.rotate((rotate * Math.PI) / 180);
-  // ctx.translate(-x-sw/2,-y-sh/2);
-
+  ctx.translate(x + sw / 2, y + sh / 2);
+  ctx.rotate((rotate * Math.PI) / 180);
+  ctx.translate(-x - sw / 2, -y - sh / 2);
   ctx.drawImage(img, sliderx, slidery, w, h, x, y, sw, sh);
   ctx.restore();
 }

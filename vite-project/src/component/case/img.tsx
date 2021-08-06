@@ -1,30 +1,8 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { drawBorder } from "../control/imgRender";
-import {MouseControl} from "../control/mouseControl";
-interface childProps {
-  canvasAll: React.RefObject<HTMLCanvasElement>;
-  rotate: number;
-  globalAlpha: number;
-  color: string;
-  colors: string | undefined;
-  shadowOffsetX: number;
-  shadowOffsetY: number;
-  shadowBlur: number;
-  shadowColor: string;
-  operation: string;
-  sliderx1: number;
-  slidery1: number;
-  scaleAll: number;
-  turn: string;
-  changeTurn: Function;
-  ctx: any;
-  scaleSlider: number;
-  sliderx: number;
-  slidery: number;
-  imgContent: string;
-  changeImgContent: Function;
-}
-const ImgContent: React.FC<childProps> = (props) => {
+import { MouseControl } from "../control/mouseControl";
+import { imgProps } from "./receive";
+const ImgContent: React.FC<imgProps> = (props) => {
   const {
     scaleSlider,
     sliderx,
@@ -53,11 +31,21 @@ const ImgContent: React.FC<childProps> = (props) => {
   const [scaleX, setScaleX] = useState<number>(1);
   const [scaleY, setScaleY] = useState<number>(1);
   const [controlRotate, setControlRotate] = useState<number>(0);
-  const changeLeft=useCallback((code:number) => {setLeft(code)},[],);
-  const changeTop=useCallback((code:number) => {setTop(code)},[],);
-  const changeScaleX=useCallback((code:number) => {setScaleX(code)},[],);
-  const changeScaleY=useCallback((code:number) => {setScaleY(code)},[],);
-  const changeControlRotate=useCallback((code:number) => {setControlRotate(code)},[],);
+  const changeLeft = useCallback((code: number) => {
+    setLeft(code);
+  }, []);
+  const changeTop = useCallback((code: number) => {
+    setTop(code);
+  }, []);
+  const changeScaleX = useCallback((code: number) => {
+    setScaleX(code);
+  }, []);
+  const changeScaleY = useCallback((code: number) => {
+    setScaleY(code);
+  }, []);
+  const changeControlRotate = useCallback((code: number) => {
+    setControlRotate(code);
+  }, []);
   useEffect(() => {
     if (turn === "img") {
       draw();
@@ -91,32 +79,56 @@ const ImgContent: React.FC<childProps> = (props) => {
     let canvas: any = canvasAll.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var img = new Image();
-      function drawImage() {
-        var w=img.width;
-        var h=img.height;
-        var sw = w * scaleSlider*scaleX;
-        var sh = h * scaleSlider*scaleY;
-        ctx.globalCompositeOperation = operation;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.save();
-        ctx.translate(left+sw/2, top+sh/2);
-        ctx.rotate(((rotate+controlRotate) * Math.PI) / 180);
-        ctx.translate(-left-sw/2, -top-sh/2);
-        ctx.drawImage(img, sliderx, slidery, w, h, left, top, sw, sh);
-        ctx.restore();
-        let x=left,y=top;
-        let isTransparent=false;
-        let howRotate='center';
-        MouseControl('img',changeControlRotate,changeScaleX,changeScaleY,changeLeft,changeTop,canvas,ctx,rotate+controlRotate,sw,sh,x,y,isTransparent,sliderx,slidery,w,h,scaleSlider,howRotate,img);
-      }
-      img.crossOrigin = "anonymous";
-      img.src = imgContent;
-      img.onload = function (e) {
-        drawImage();
-      };
+    function drawImage() {
+      var w = img.width;
+      var h = img.height;
+      var sw = w * scaleSlider * scaleX;
+      var sh = h * scaleSlider * scaleY;
+      ctx.globalCompositeOperation = operation;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(left + sw / 2, top + sh / 2);
+      ctx.rotate(((rotate + controlRotate) * Math.PI) / 180);
+      ctx.translate(-left - sw / 2, -top - sh / 2);
+      ctx.drawImage(img, sliderx, slidery, w, h, left, top, sw, sh);
+      ctx.restore();
+      let x = left,
+        y = top;
+      let isTransparent = false;
+      let howRotate = "center";
+      MouseControl(
+        "img",
+        changeControlRotate,
+        changeScaleX,
+        changeScaleY,
+        changeLeft,
+        changeTop,
+        canvas,
+        ctx,
+        rotate,
+        controlRotate,
+        sw,
+        sh,
+        x,
+        y,
+        isTransparent,
+        sliderx,
+        slidery,
+        w,
+        h,
+        scaleSlider,
+        howRotate,
+        img
+      );
+    }
+    img.crossOrigin = "anonymous";
+    img.src = imgContent;
+    img.onload = function (e) {
+      drawImage();
+    };
   }
   return (
-    <div> 
+    <div>
       <input
         type="text"
         placeholder="输入图片地址"
@@ -124,12 +136,16 @@ const ImgContent: React.FC<childProps> = (props) => {
         onChange={(e) => changeImgContent(e.target.value)}
       ></input>
       <div>
-      <button type="button" onClick={()=>{draw();}}>
-      添加图片
-      </button>
+        <button
+          type="button"
+          onClick={() => {
+            draw();
+          }}
+        >
+          添加图片
+        </button>
       </div>
     </div>
   );
 };
 export default ImgContent;
-

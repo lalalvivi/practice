@@ -1,30 +1,7 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
-interface childProps {
-  canvasAll: React.RefObject<HTMLCanvasElement>;
-  rotate: number;
-  globalAlpha: number;
-  color: string;
-  colors: string | undefined;
-  shadowOffsetX: number;
-  shadowOffsetY: number;
-  shadowBlur: number;
-  shadowColor: string;
-  operation: string;
-  sliderx1: number;
-  slidery1: number;
-  scaleAll: number;
-  turn: string;
-  changeTurn: Function;
-  ctx: any;
-  textContent: string | undefined;
-  changeTextContent: Function;
-  fontSize: number;
-  direction: string;
-  textAlign: string;
-  textBaseline: string;
-  fontFamily: string;
-}
-const TextContent: React.FC<childProps> = (props) => {
+import { textProps } from "./receive";
+
+const TextContent: React.FC<textProps> = (props) => {
   const {
     fontSize,
     fontFamily,
