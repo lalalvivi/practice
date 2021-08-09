@@ -1,4 +1,3 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
 //四个坐标点定位区域
 const position = (
   sw: number,

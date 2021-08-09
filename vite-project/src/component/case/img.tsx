@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
-import { drawBorder } from "../control/imgRender";
+import React, { useEffect, useState, useCallback } from "react";
 import { MouseControl } from "../control/mouseControl";
 import { imgProps } from "./receive";
 const ImgContent: React.FC<imgProps> = (props) => {

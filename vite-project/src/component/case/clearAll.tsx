@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useEffect } from "react";
 import { clearProps } from "./receive";
 const ClearAll: React.FC<clearProps> = (props) => {
   const {

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useEffect } from "react";
 import { textProps } from "./receive";
 
 const TextContent: React.FC<textProps> = (props) => {

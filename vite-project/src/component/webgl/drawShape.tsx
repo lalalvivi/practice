@@ -1,30 +1,30 @@
-import React , { useEffect } from 'react';
-interface childProps{
+import React from "react";
+interface childProps {
   canvasWebgl: React.RefObject<HTMLCanvasElement>;
-  drawN:number;
-  changeDrawN:Function;
+  drawN: number;
+  changeDrawN: Function;
 }
-const  DrawShape:React.FC<childProps>=(props)=> {
-    const {canvasWebgl,changeDrawN,drawN}=props;
-    // useEffect(() => {
-    //   if(turn==='webgl'){ ngon(3)}
-    //     //处理异步数据
-    //   }, [turn,canvasAll,changeTurn]);
-          // 顶点着色器代码(决定顶在哪里，大小)
-          var VSHADER_SOURCE =
-          "attribute vec4 a_Position;\n" +
-          "void main() {\n" +
-          "  gl_Position = a_Position;\n" + // 设置顶点的位置
-          "  gl_PointSize = 10.0;\n" + // 设置顶点的大小
-          "}\n";
-       
-        // 片元着色器代码（给像素上色）
-        var FSHADER_SOURCE =
-          "void main() {\n" +
-          "  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n" + // 设置顶点的颜色
-          "}\n";
-          
-           // 创建一个program（相当于着色器的上下文）
+const DrawShape: React.FC<childProps> = (props) => {
+  const { canvasWebgl, changeDrawN, drawN } = props;
+  // useEffect(() => {
+  //   if(turn==='webgl'){ ngon(3)}
+  //     //处理异步数据
+  //   }, [turn,canvasAll,changeTurn]);
+  // 顶点着色器代码(决定顶在哪里，大小)
+  var VSHADER_SOURCE =
+    "attribute vec4 a_Position;\n" +
+    "void main() {\n" +
+    "  gl_Position = a_Position;\n" + // 设置顶点的位置
+    "  gl_PointSize = 10.0;\n" + // 设置顶点的大小
+    "}\n";
+
+  // 片元着色器代码（给像素上色）
+  var FSHADER_SOURCE =
+    "void main() {\n" +
+    "  gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);\n" + // 设置顶点的颜色
+    "}\n";
+
+  // 创建一个program（相当于着色器的上下文）
   function createProgram(context: any, vshader: any, fshader: any) {
     var vertexShader = loadShader(context, context.VERTEX_SHADER, vshader);
     var fragmentShader = loadShader(context, context.FRAGMENT_SHADER, fshader);
@@ -40,33 +40,33 @@ const  DrawShape:React.FC<childProps>=(props)=> {
     context.compileShader(shader);
     return shader;
   }
-   //绘制正n边形
-   function ngon(n:number){
+  //绘制正n边形
+  function ngon(n: number) {
     var canvas: any = canvasWebgl.current;
     canvas.onmousedown = null;
     var context = canvas.getContext("webgl", {});
     var program = createProgram(context, VSHADER_SOURCE, FSHADER_SOURCE);
     context.program = program;
     context.useProgram(program);
-    if(n==4){
-    var vertices = new Float32Array([
-      -0.5, 0.5,-0.5, -0.5,  0.5, 0.5,0.5,-0.5
-    ]);
-  }else{
-    var vertices = new Float32Array(n*2);
-    var angle = 0; // 开始的弧度 
-    var r = 0.5; // 圆的半径
-    // θ值
-    var stepAngle = 360/n * (Math.PI/180);
-    for(var i=0; i<n*2; i+=2){
-      // 计算顶点x坐标
-      vertices[i] = r * Math.cos(angle);
-      // 计算顶点y坐标
-      vertices[i+1] = r * Math.sin(angle);
-      angle += stepAngle;
+    if (n == 4) {
+      var vertices = new Float32Array([
+        -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5,
+      ]);
+    } else {
+      var vertices = new Float32Array(n * 2);
+      var angle = 0; // 开始的弧度
+      var r = 0.5; // 圆的半径
+      // θ值
+      var stepAngle = (360 / n) * (Math.PI / 180);
+      for (var i = 0; i < n * 2; i += 2) {
+        // 计算顶点x坐标
+        vertices[i] = r * Math.cos(angle);
+        // 计算顶点y坐标
+        vertices[i + 1] = r * Math.sin(angle);
+        angle += stepAngle;
+      }
     }
-  }
-   
+
     // 创建一个缓存对象，用于存放顶点数据
     var vertexBuffer = context.createBuffer();
     // 绑定缓存对象
@@ -84,29 +84,28 @@ const  DrawShape:React.FC<childProps>=(props)=> {
     // 清除 <canvas>
     context.clear(context.COLOR_BUFFER_BIT);
     // 画n个点
-    if(n==4){
-    context.drawArrays(context.TRIANGLE_STRIP, 0, n);
-    }
-    else{
-      context.drawArrays(context.TRIANGLE_FAN, 0, n)
+    if (n == 4) {
+      context.drawArrays(context.TRIANGLE_STRIP, 0, n);
+    } else {
+      context.drawArrays(context.TRIANGLE_FAN, 0, n);
     }
   }
-    return (
-        <div>
-            <input
-          type="number"
-          value={drawN}
-          onChange={(e) => changeDrawN(e.target.value)}
-        />
-             <button
-            type="button"
-            onClick={() => {
-              ngon(drawN);
-            }}
-          >
-            绘制正n边形
-          </button>
-        </div>
-    )
-}
+  return (
+    <div>
+      <input
+        type="number"
+        value={drawN}
+        onChange={(e) => changeDrawN(e.target.value)}
+      />
+      <button
+        type="button"
+        onClick={() => {
+          ngon(drawN);
+        }}
+      >
+        绘制正n边形
+      </button>
+    </div>
+  );
+};
 export default DrawShape;

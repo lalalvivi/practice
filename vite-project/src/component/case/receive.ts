@@ -108,4 +108,6 @@ interface clearProps{
     changeLineDashy:Function;
     changeLineDashOffset:Function;
   }
+//   鼠标控制参数
+
 export  type {childProps,imgProps,textProps,clearProps};

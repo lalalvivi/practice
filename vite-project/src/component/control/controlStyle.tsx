@@ -1,5 +1,4 @@
 import { controlPosition, position } from "./imgRender";
-
 var scaleMap = ["e", "ne", "n", "nw", "w", "sw", "s", "se"];
 //控制器区域
 function controlArea(

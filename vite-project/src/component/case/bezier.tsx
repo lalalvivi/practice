@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useEffect } from "react";
 import { childProps } from "./receive";
 const Bezier: React.FC<childProps> = (props) => {
   const {

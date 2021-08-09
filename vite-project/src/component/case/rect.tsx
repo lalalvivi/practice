@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState, useCallback } from "react";
 import { MouseControl } from "../control/mouseControl";
 import { childProps } from "./receive";
-const Rect: React.FC<childProps> = (props) => {
+import { appContext } from "../../App";
+
+function Rect() {
   const {
     ctx,
     turn,
@@ -25,7 +27,7 @@ const Rect: React.FC<childProps> = (props) => {
     sliderx1,
     slidery1,
     scaleAll,
-  } = props;
+  } = useContext(appContext);
   const [left, setLeft] = useState<number>(200);
   const [top, setTop] = useState<number>(200);
   const [reUse, setReUse] = useState<boolean>(false);
@@ -125,5 +127,5 @@ const Rect: React.FC<childProps> = (props) => {
       </button>
     </div>
   );
-};
+}
 export default Rect;

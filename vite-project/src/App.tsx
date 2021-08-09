@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef,useMemo, useCallback,createContext } from "react";
-import Router from './router';
+import React, { useState, useEffect, useCallback, createContext } from "react";
+import Router from "./router";
 import "./App.less";
 import Rect from "./component/case/rect";
 import Color from "./component/attribute/color";
@@ -26,38 +26,8 @@ import DrawShape from "./component/webgl/drawShape";
 import ChooseColor from "./component/attribute/chooseColor";
 import MouseDraw from "./component/webgl/mouseDraw";
 import AnimationDraw from "./component/webgl/animation";
-function App(){
-  const changeColor=useCallback((code:string) => {setColor(code)},[],);
-  const changeColors=useCallback((code:string) => {setColors(code)},[],);
-  const changeLineDashx=useCallback((code:number) => {setLineDashx(code)},[],);
-  const changeLineDashy=useCallback((code:number) => {setLineDashy(code)},[],);
-  const changeLineDashOffset=useCallback((code:number) => {setLineDashOffset(code)},[],);
-  const changeLinewidth=useCallback((code:number) => {setLinewidth(code)},[],);
-  const changeLineCap=useCallback((code:string) => {setLineCap(code)},[],);
-  const changeLineJoin=useCallback((code:string) => {setLineJoin(code)},[],);
-  const changeShadowBlur=useCallback((code:number) => {setShadowBlur(code)},[],);
-  const changeShadowColor=useCallback((code:string) => {setShadowColor(code)},[],);
-  const changeShadowOffsetX=useCallback((code:number) => {setShadowOffsetX(code)},[],);
-  const changeShadowOffsetY=useCallback((code:number) => {setShadowOffsetY(code)},[],);
-  const changeFontSize=useCallback((code:number) => {setFontSize(code)},[],);
-  const changeFontFamily=useCallback((code:string) => {setFontFamily(code)},[],);
-  const changeTextAlign=useCallback((code:string) => {setTextAlign(code)},[],);
-  const changeTextBaseline=useCallback((code:string) => {setTextBaseline(code)},[],);
-  const changeDirection=useCallback((code:string) => {setDirection(code)},[],);
-  const changeScaleAll=useCallback((code:number) => {setScaleAll(code)},[],);
-  const changeRotate=useCallback((code:number) => {setRotate(code)},[],);
-  const changeGlobalAlpha=useCallback((code:number) => {setGlobalAlpha(code)},[],);
-  const changeOperation=useCallback((code:string) => {setOperation(code)},[],);
-  const changeSliderx1=useCallback((code:number) => {setSliderx1(code)},[],);
-  const changeSlidery1=useCallback((code:number) => {setSlidery1(code)},[],);
-  const changeScaleSlider=useCallback((code:number) => {setScaleSlider(code)},[],);
-  const changeSliderx=useCallback((code:number) => {setSliderx(code)},[],);
-  const changeSlidery=useCallback((code:number) => {setSlidery(code)},[],);
-  const changeTurn=useCallback((code:string) => {setTurn(code)},[],);
-  const changeImgContent=useCallback((code:string) => {setImgContent(code)},[],);
-  const changeTextContent=useCallback((code:string) => {setTextContent(code)},[],);
-  const changeDrawN=useCallback((code:number) => {setDrawN(code)},[],);
-  const changeActive=useCallback((code:boolean) => {setActive(code)},[],);
+export const appContext = createContext({});
+function App() {
   const [drawN, setDrawN] = useState<number>(3);
   const [turn, setTurn] = useState<string>("black");
   const [scaleAll, setScaleAll] = useState<number>(1);
@@ -80,9 +50,11 @@ function App(){
   const [fontFamily, setFontFamily] = useState<string>("serif");
   const [textAlign, setTextAlign] = useState<string>("start");
   const [textBaseline, setTextBaseline] = useState<string>("alphabetic");
-  const [direction, setDirection ] = useState<string>("inherit");
+  const [direction, setDirection] = useState<string>("inherit");
   const [textContent, setTextContent] = useState<string>();
-  const [imgContent, setImgContent] = useState("https://cdn1.mihuiai.com/media/images/b7bb3b4a-4802-4c6a-b879-bd61db1ee675_thumb.png?x-oss-process=style/small");
+  const [imgContent, setImgContent] = useState(
+    "https://cdn1.mihuiai.com/media/images/b7bb3b4a-4802-4c6a-b879-bd61db1ee675_thumb.png?x-oss-process=style/small"
+  );
   const [scaleSlider, setScaleSlider] = useState<number>(1);
   const [sliderx, setSliderx] = useState<number>(1);
   const [slidery, setSlidery] = useState<number>(1);
@@ -92,66 +64,501 @@ function App(){
   const selectedColor = React.useRef<HTMLDivElement>(null);
   const canvasAll = React.useRef<HTMLCanvasElement>(null);
   const canvasWebgl = React.useRef<HTMLCanvasElement>(null);
-  const [ctx,setCtx]= useState<any>();
+  const [ctx, setCtx] = useState<any>();
+  const changeColor = useCallback((code: string) => {
+    setColor(code);
+  }, []);
+  const changeColors = useCallback((code: string) => {
+    setColors(code);
+  }, []);
+  const changeLineDashx = useCallback((code: number) => {
+    setLineDashx(code);
+  }, []);
+  const changeLineDashy = useCallback((code: number) => {
+    setLineDashy(code);
+  }, []);
+  const changeLineDashOffset = useCallback((code: number) => {
+    setLineDashOffset(code);
+  }, []);
+  const changeLinewidth = useCallback((code: number) => {
+    setLinewidth(code);
+  }, []);
+  const changeLineCap = useCallback((code: string) => {
+    setLineCap(code);
+  }, []);
+  const changeLineJoin = useCallback((code: string) => {
+    setLineJoin(code);
+  }, []);
+  const changeShadowBlur = useCallback((code: number) => {
+    setShadowBlur(code);
+  }, []);
+  const changeShadowColor = useCallback((code: string) => {
+    setShadowColor(code);
+  }, []);
+  const changeShadowOffsetX = useCallback((code: number) => {
+    setShadowOffsetX(code);
+  }, []);
+  const changeShadowOffsetY = useCallback((code: number) => {
+    setShadowOffsetY(code);
+  }, []);
+  const changeFontSize = useCallback((code: number) => {
+    setFontSize(code);
+  }, []);
+  const changeFontFamily = useCallback((code: string) => {
+    setFontFamily(code);
+  }, []);
+  const changeTextAlign = useCallback((code: string) => {
+    setTextAlign(code);
+  }, []);
+  const changeTextBaseline = useCallback((code: string) => {
+    setTextBaseline(code);
+  }, []);
+  const changeDirection = useCallback((code: string) => {
+    setDirection(code);
+  }, []);
+  const changeScaleAll = useCallback((code: number) => {
+    setScaleAll(code);
+  }, []);
+  const changeRotate = useCallback((code: number) => {
+    setRotate(code);
+  }, []);
+  const changeGlobalAlpha = useCallback((code: number) => {
+    setGlobalAlpha(code);
+  }, []);
+  const changeOperation = useCallback((code: string) => {
+    setOperation(code);
+  }, []);
+  const changeSliderx1 = useCallback((code: number) => {
+    setSliderx1(code);
+  }, []);
+  const changeSlidery1 = useCallback((code: number) => {
+    setSlidery1(code);
+  }, []);
+  const changeScaleSlider = useCallback((code: number) => {
+    setScaleSlider(code);
+  }, []);
+  const changeSliderx = useCallback((code: number) => {
+    setSliderx(code);
+  }, []);
+  const changeSlidery = useCallback((code: number) => {
+    setSlidery(code);
+  }, []);
+  const changeTurn = useCallback((code: string) => {
+    setTurn(code);
+  }, []);
+  const changeImgContent = useCallback((code: string) => {
+    setImgContent(code);
+  }, []);
+  const changeTextContent = useCallback((code: string) => {
+    setTextContent(code);
+  }, []);
+  const changeDrawN = useCallback((code: number) => {
+    setDrawN(code);
+  }, []);
+  const changeActive = useCallback((code: boolean) => {
+    setActive(code);
+  }, []);
+  const deafultContxt = {
+    ctx,
+    turn,
+    changeTurn,
+    canvasAll,
+    rotate,
+    globalAlpha,
+    color,
+    colors,
+    shadowOffsetX,
+    shadowOffsetY,
+    shadowBlur,
+    shadowColor,
+    linewidth,
+    lineJoin,
+    lineCap,
+    operation,
+    lineDashx,
+    lineDashy,
+    lineDashOffset,
+    sliderx1,
+    slidery1,
+    scaleAll,
+  };
   useEffect(() => {
-    setCtx(init())
-    // change(turn);  
+    setCtx(init());
+    // change(turn);
     //处理异步数据
   }, [
-    ctx,canvasAll,turn,scaleAll,scaleSlider,sliderx,slidery,sliderx1,slidery1,
-    direction,textAlign,rotate,globalAlpha,operation,active,
-    color,colors,lineDashx,lineDashOffset,linewidth,lineDashy,
-    lineCap,lineJoin,textBaseline,selectedColor,fontFamily,
-   fontSize,shadowBlur,shadowOffsetY,shadowColor,shadowOffsetX,
+    ctx,
+    canvasAll,
+    turn,
+    scaleAll,
+    scaleSlider,
+    sliderx,
+    slidery,
+    sliderx1,
+    slidery1,
+    direction,
+    textAlign,
+    rotate,
+    globalAlpha,
+    operation,
+    active,
+    color,
+    colors,
+    lineDashx,
+    lineDashOffset,
+    linewidth,
+    lineDashy,
+    lineCap,
+    lineJoin,
+    textBaseline,
+    selectedColor,
+    fontFamily,
+    fontSize,
+    shadowBlur,
+    shadowOffsetY,
+    shadowColor,
+    shadowOffsetX,
   ]);
-  function init(){
+  function init() {
     let canvas = canvasAll.current;
-          let ctx = canvas?.getContext("2d");
-          return ctx;
+    let ctx = canvas?.getContext("2d");
+
+    return ctx;
   }
   return (
     <div className="all">
-       {/* <Router /> */}
+      {/* <Router /> */}
       <div className="left">
-        <Rect ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}linewidth={linewidth}lineJoin={lineJoin}lineCap={lineCap}operation={operation} lineDashx={lineDashx} lineDashy={lineDashy} lineDashOffset={lineDashOffset} sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-        <Tangle  ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}linewidth={linewidth}lineJoin={lineJoin}lineCap={lineCap}operation={operation} lineDashx={lineDashx} lineDashy={lineDashy} lineDashOffset={lineDashOffset} sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-        <Line ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}linewidth={linewidth}lineJoin={lineJoin}lineCap={lineCap}operation={operation} lineDashx={lineDashx} lineDashy={lineDashy} lineDashOffset={lineDashOffset} sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-        <Arc ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}linewidth={linewidth}lineJoin={lineJoin}lineCap={lineCap}operation={operation} lineDashx={lineDashx} lineDashy={lineDashy} lineDashOffset={lineDashOffset} sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-        <Quadratic ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}linewidth={linewidth}lineJoin={lineJoin}lineCap={lineCap}operation={operation} lineDashx={lineDashx} lineDashy={lineDashy} lineDashOffset={lineDashOffset} sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-        <Bezier ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}linewidth={linewidth}lineJoin={lineJoin}lineCap={lineCap}operation={operation} lineDashx={lineDashx} lineDashy={lineDashy} lineDashOffset={lineDashOffset} sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-        <PathLine ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}linewidth={linewidth}lineJoin={lineJoin}lineCap={lineCap}operation={operation} lineDashx={lineDashx} lineDashy={lineDashy} lineDashOffset={lineDashOffset} sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-        <TextContent textContent={textContent} changeTextContent={changeTextContent} ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}fontSize={fontSize}fontFamily={fontFamily}direction={direction}operation={operation} textAlign={textAlign} textBaseline={textBaseline}  sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-        <ImgContent imgContent={imgContent} changeImgContent={changeImgContent} ctx={ctx} turn={turn} changeTurn={changeTurn} canvasAll={canvasAll} rotate={rotate} globalAlpha={globalAlpha} color={color} colors={colors} shadowOffsetX={shadowOffsetX} shadowOffsetY={shadowOffsetY} shadowBlur={shadowBlur} shadowColor={shadowColor}scaleSlider={scaleSlider}sliderx={sliderx}slidery={slidery}operation={operation}   sliderx1={sliderx1} slidery1={slidery1}scaleAll={scaleAll}/>
-          <ImgStyle scaleSlider={scaleSlider} changeScaleSlider={changeScaleSlider} sliderx={sliderx} changeSliderx={changeSliderx} slidery={slidery} changeSlidery={changeSlidery}/>
-        <Origin sliderx1={sliderx1} changeSliderx1={changeSliderx1} slidery1={slidery1} changeSlidery1={changeSlidery1} />
+        <appContext.Provider value={deafultContxt}>
+          <Rect />
+        </appContext.Provider>
+        <Tangle
+          ctx={ctx}
+          turn={turn}
+          changeTurn={changeTurn}
+          canvasAll={canvasAll}
+          rotate={rotate}
+          globalAlpha={globalAlpha}
+          color={color}
+          colors={colors}
+          shadowOffsetX={shadowOffsetX}
+          shadowOffsetY={shadowOffsetY}
+          shadowBlur={shadowBlur}
+          shadowColor={shadowColor}
+          linewidth={linewidth}
+          lineJoin={lineJoin}
+          lineCap={lineCap}
+          operation={operation}
+          lineDashx={lineDashx}
+          lineDashy={lineDashy}
+          lineDashOffset={lineDashOffset}
+          sliderx1={sliderx1}
+          slidery1={slidery1}
+          scaleAll={scaleAll}
+        />
+        <Line
+          ctx={ctx}
+          turn={turn}
+          changeTurn={changeTurn}
+          canvasAll={canvasAll}
+          rotate={rotate}
+          globalAlpha={globalAlpha}
+          color={color}
+          colors={colors}
+          shadowOffsetX={shadowOffsetX}
+          shadowOffsetY={shadowOffsetY}
+          shadowBlur={shadowBlur}
+          shadowColor={shadowColor}
+          linewidth={linewidth}
+          lineJoin={lineJoin}
+          lineCap={lineCap}
+          operation={operation}
+          lineDashx={lineDashx}
+          lineDashy={lineDashy}
+          lineDashOffset={lineDashOffset}
+          sliderx1={sliderx1}
+          slidery1={slidery1}
+          scaleAll={scaleAll}
+        />
+        <Arc
+          ctx={ctx}
+          turn={turn}
+          changeTurn={changeTurn}
+          canvasAll={canvasAll}
+          rotate={rotate}
+          globalAlpha={globalAlpha}
+          color={color}
+          colors={colors}
+          shadowOffsetX={shadowOffsetX}
+          shadowOffsetY={shadowOffsetY}
+          shadowBlur={shadowBlur}
+          shadowColor={shadowColor}
+          linewidth={linewidth}
+          lineJoin={lineJoin}
+          lineCap={lineCap}
+          operation={operation}
+          lineDashx={lineDashx}
+          lineDashy={lineDashy}
+          lineDashOffset={lineDashOffset}
+          sliderx1={sliderx1}
+          slidery1={slidery1}
+          scaleAll={scaleAll}
+        />
+        <Quadratic
+          ctx={ctx}
+          turn={turn}
+          changeTurn={changeTurn}
+          canvasAll={canvasAll}
+          rotate={rotate}
+          globalAlpha={globalAlpha}
+          color={color}
+          colors={colors}
+          shadowOffsetX={shadowOffsetX}
+          shadowOffsetY={shadowOffsetY}
+          shadowBlur={shadowBlur}
+          shadowColor={shadowColor}
+          linewidth={linewidth}
+          lineJoin={lineJoin}
+          lineCap={lineCap}
+          operation={operation}
+          lineDashx={lineDashx}
+          lineDashy={lineDashy}
+          lineDashOffset={lineDashOffset}
+          sliderx1={sliderx1}
+          slidery1={slidery1}
+          scaleAll={scaleAll}
+        />
+        <Bezier
+          ctx={ctx}
+          turn={turn}
+          changeTurn={changeTurn}
+          canvasAll={canvasAll}
+          rotate={rotate}
+          globalAlpha={globalAlpha}
+          color={color}
+          colors={colors}
+          shadowOffsetX={shadowOffsetX}
+          shadowOffsetY={shadowOffsetY}
+          shadowBlur={shadowBlur}
+          shadowColor={shadowColor}
+          linewidth={linewidth}
+          lineJoin={lineJoin}
+          lineCap={lineCap}
+          operation={operation}
+          lineDashx={lineDashx}
+          lineDashy={lineDashy}
+          lineDashOffset={lineDashOffset}
+          sliderx1={sliderx1}
+          slidery1={slidery1}
+          scaleAll={scaleAll}
+        />
+        <PathLine
+          ctx={ctx}
+          turn={turn}
+          changeTurn={changeTurn}
+          canvasAll={canvasAll}
+          rotate={rotate}
+          globalAlpha={globalAlpha}
+          color={color}
+          colors={colors}
+          shadowOffsetX={shadowOffsetX}
+          shadowOffsetY={shadowOffsetY}
+          shadowBlur={shadowBlur}
+          shadowColor={shadowColor}
+          linewidth={linewidth}
+          lineJoin={lineJoin}
+          lineCap={lineCap}
+          operation={operation}
+          lineDashx={lineDashx}
+          lineDashy={lineDashy}
+          lineDashOffset={lineDashOffset}
+          sliderx1={sliderx1}
+          slidery1={slidery1}
+          scaleAll={scaleAll}
+        />
+        <TextContent
+          textContent={textContent}
+          changeTextContent={changeTextContent}
+          ctx={ctx}
+          turn={turn}
+          changeTurn={changeTurn}
+          canvasAll={canvasAll}
+          rotate={rotate}
+          globalAlpha={globalAlpha}
+          color={color}
+          colors={colors}
+          shadowOffsetX={shadowOffsetX}
+          shadowOffsetY={shadowOffsetY}
+          shadowBlur={shadowBlur}
+          shadowColor={shadowColor}
+          fontSize={fontSize}
+          fontFamily={fontFamily}
+          direction={direction}
+          operation={operation}
+          textAlign={textAlign}
+          textBaseline={textBaseline}
+          sliderx1={sliderx1}
+          slidery1={slidery1}
+          scaleAll={scaleAll}
+        />
+        <ImgContent
+          imgContent={imgContent}
+          changeImgContent={changeImgContent}
+          ctx={ctx}
+          turn={turn}
+          changeTurn={changeTurn}
+          canvasAll={canvasAll}
+          rotate={rotate}
+          globalAlpha={globalAlpha}
+          color={color}
+          colors={colors}
+          shadowOffsetX={shadowOffsetX}
+          shadowOffsetY={shadowOffsetY}
+          shadowBlur={shadowBlur}
+          shadowColor={shadowColor}
+          scaleSlider={scaleSlider}
+          sliderx={sliderx}
+          slidery={slidery}
+          operation={operation}
+          sliderx1={sliderx1}
+          slidery1={slidery1}
+          scaleAll={scaleAll}
+        />
+        <ImgStyle
+          scaleSlider={scaleSlider}
+          changeScaleSlider={changeScaleSlider}
+          sliderx={sliderx}
+          changeSliderx={changeSliderx}
+          slidery={slidery}
+          changeSlidery={changeSlidery}
+        />
+        <Origin
+          sliderx1={sliderx1}
+          changeSliderx1={changeSliderx1}
+          slidery1={slidery1}
+          changeSlidery1={changeSlidery1}
+        />
       </div>
       <div className="right">
-        <ClearAll ctx={ctx}  canvasAll={canvasAll} turn={turn} changeTurn={changeTurn} changeColor={changeColor} changeScaleAll={changeScaleAll} changeRotate={changeRotate} changeGlobalAlpha={changeGlobalAlpha} changeColors={changeColors} changeLinewidth={changeLinewidth} changeLineCap={changeLineCap} changeLineJoin={changeLineJoin} changeShadowBlur={changeShadowBlur} changeShadowColor={changeShadowColor} changeShadowOffsetX={changeShadowOffsetX} changeShadowOffsetY={changeShadowOffsetY} changeFontSize={changeFontSize} changeFontFamily={changeFontFamily} changeTextAlign={changeTextAlign} changeTextBaseline={changeTextBaseline} changeDirection={changeDirection} changeTextContent={changeTextContent} changeImgContent={changeImgContent} changeScaleSlider={changeScaleSlider} changeSliderx={changeSliderx} changeSlidery={changeSlidery} changeSliderx1={changeSliderx1} changeSlidery1={changeSlidery1} changeOperation={changeOperation} changeLineDashx={changeLineDashx} changeLineDashy={changeLineDashy} changeLineDashOffset={changeLineDashOffset} />
+        <ClearAll
+          ctx={ctx}
+          canvasAll={canvasAll}
+          turn={turn}
+          changeTurn={changeTurn}
+          changeColor={changeColor}
+          changeScaleAll={changeScaleAll}
+          changeRotate={changeRotate}
+          changeGlobalAlpha={changeGlobalAlpha}
+          changeColors={changeColors}
+          changeLinewidth={changeLinewidth}
+          changeLineCap={changeLineCap}
+          changeLineJoin={changeLineJoin}
+          changeShadowBlur={changeShadowBlur}
+          changeShadowColor={changeShadowColor}
+          changeShadowOffsetX={changeShadowOffsetX}
+          changeShadowOffsetY={changeShadowOffsetY}
+          changeFontSize={changeFontSize}
+          changeFontFamily={changeFontFamily}
+          changeTextAlign={changeTextAlign}
+          changeTextBaseline={changeTextBaseline}
+          changeDirection={changeDirection}
+          changeTextContent={changeTextContent}
+          changeImgContent={changeImgContent}
+          changeScaleSlider={changeScaleSlider}
+          changeSliderx={changeSliderx}
+          changeSlidery={changeSlidery}
+          changeSliderx1={changeSliderx1}
+          changeSlidery1={changeSlidery1}
+          changeOperation={changeOperation}
+          changeLineDashx={changeLineDashx}
+          changeLineDashy={changeLineDashy}
+          changeLineDashOffset={changeLineDashOffset}
+        />
         <div className="rightContent">
-            <Source operation={operation} changeOperation={changeOperation} />
-            <Scale  scaleAll={scaleAll} changeScaleAll={changeScaleAll}/>
-            <Rotate rotate={rotate} changeRotate={changeRotate}/>
-            <Alpha globalAlpha={globalAlpha} changeGlobalAlpha={changeGlobalAlpha}/>
-          <Color color={color} changeColor={changeColor} colors={colors} changeColors={changeColors}/>
-          <div
-            ref={selectedColor}
-            className="selectedColor"
-          ></div>
-          <Dotted lineDashx={lineDashx} changeLineDashx={changeLineDashx} lineDashy={lineDashy} changeLineDashy={changeLineDashy} lineDashOffset={lineDashOffset} changeLineDashOffset={changeLineDashOffset}/>
-          <LineStyle linewidth={linewidth} changeLinewidth={changeLinewidth} lineCap={lineCap} lineJoin={lineJoin} changeLineCap={changeLineCap} changeLineJoin={changeLineJoin}/>
-          <Blur shadowBlur={shadowBlur} changeShadowBlur={changeShadowBlur} shadowColor={shadowColor} changeShadowColor={changeShadowColor} shadowOffsetX={shadowOffsetX} changeShadowOffsetX={changeShadowOffsetX} shadowOffsetY={shadowOffsetY} changeShadowOffsetY={changeShadowOffsetY}/>
-          <TextStyle fontSize={fontSize} changeFontSize={changeFontSize} fontFamily={fontFamily} changeFontFamily={changeFontFamily} textAlign={textAlign} changeTextAlign={changeTextAlign} textBaseline={textBaseline} changeTextBaseline={changeTextBaseline} direction={direction} changeDirection={changeDirection} />
-          <ChooseColor canvasAll={canvasAll} selectedColor={selectedColor}changeColor={changeColor} active={active} ctx={ctx} changeActive={changeActive}></ChooseColor>
+          <Source operation={operation} changeOperation={changeOperation} />
+          <Scale scaleAll={scaleAll} changeScaleAll={changeScaleAll} />
+          <Rotate rotate={rotate} changeRotate={changeRotate} />
+          <Alpha
+            globalAlpha={globalAlpha}
+            changeGlobalAlpha={changeGlobalAlpha}
+          />
+          <Color
+            color={color}
+            changeColor={changeColor}
+            colors={colors}
+            changeColors={changeColors}
+          />
+          <div ref={selectedColor} className="selectedColor"></div>
+          <Dotted
+            lineDashx={lineDashx}
+            changeLineDashx={changeLineDashx}
+            lineDashy={lineDashy}
+            changeLineDashy={changeLineDashy}
+            lineDashOffset={lineDashOffset}
+            changeLineDashOffset={changeLineDashOffset}
+          />
+          <LineStyle
+            linewidth={linewidth}
+            changeLinewidth={changeLinewidth}
+            lineCap={lineCap}
+            lineJoin={lineJoin}
+            changeLineCap={changeLineCap}
+            changeLineJoin={changeLineJoin}
+          />
+          <Blur
+            shadowBlur={shadowBlur}
+            changeShadowBlur={changeShadowBlur}
+            shadowColor={shadowColor}
+            changeShadowColor={changeShadowColor}
+            shadowOffsetX={shadowOffsetX}
+            changeShadowOffsetX={changeShadowOffsetX}
+            shadowOffsetY={shadowOffsetY}
+            changeShadowOffsetY={changeShadowOffsetY}
+          />
+          <TextStyle
+            fontSize={fontSize}
+            changeFontSize={changeFontSize}
+            fontFamily={fontFamily}
+            changeFontFamily={changeFontFamily}
+            textAlign={textAlign}
+            changeTextAlign={changeTextAlign}
+            textBaseline={textBaseline}
+            changeTextBaseline={changeTextBaseline}
+            direction={direction}
+            changeDirection={changeDirection}
+          />
+          <ChooseColor
+            canvasAll={canvasAll}
+            selectedColor={selectedColor}
+            changeColor={changeColor}
+            active={active}
+            ctx={ctx}
+            changeActive={changeActive}
+          ></ChooseColor>
           <MouseDraw canvasWebgl={canvasWebgl}></MouseDraw>
           <AnimationDraw canvasWebgl={canvasWebgl}></AnimationDraw>
-         <DrawShape drawN={drawN} changeDrawN={changeDrawN} canvasWebgl={canvasWebgl}/>
+          <DrawShape
+            drawN={drawN}
+            changeDrawN={changeDrawN}
+            canvasWebgl={canvasWebgl}
+          />
         </div>
 
         <div className="canvasAll">
-        <canvas className="canvas" ref={canvasAll} id="canvas" width="800" height="800"></canvas>
+          <canvas
+            className="canvas"
+            ref={canvasAll}
+            id="canvas"
+            width="800"
+            height="800"
+          ></canvas>
         </div>
-        <canvas ref={canvasWebgl} id="canvas1" width="1720" height="800"></canvas>
-
+        <canvas
+          ref={canvasWebgl}
+          id="canvas1"
+          width="1720"
+          height="800"
+        ></canvas>
       </div>
     </div>
   );

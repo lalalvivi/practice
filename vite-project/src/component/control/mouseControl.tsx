@@ -1,4 +1,3 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
 import {
   position,
   drawRect,
@@ -101,6 +100,8 @@ function MouseControl(
       clickFlag,
       isControl
     );
+    console.log(isControl);
+
     controlScaleChange();
     // 鼠标拖动放大缩小
     function controlScaleChange() {
