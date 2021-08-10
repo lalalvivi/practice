@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { childProps } from "./receive";
-const Arc: React.FC<childProps> = (props) => {
+const Arc = (props: any) => {
+  const { ctx, canvasAll, state, turn, changeTurn } = props;
   const {
-    turn,
-    ctx,
-    changeTurn,
-    canvasAll,
     rotate,
     globalAlpha,
     color,
@@ -14,17 +11,17 @@ const Arc: React.FC<childProps> = (props) => {
     shadowOffsetY,
     shadowBlur,
     shadowColor,
-    linewidth,
+    lineWidth,
     lineJoin,
     lineCap,
     operation,
     lineDashx,
     lineDashy,
     lineDashOffset,
-    sliderx1,
-    slidery1,
+    sliderX1,
+    sliderY1,
     scaleAll,
-  } = props;
+  } = state;
   const [left, setLeft] = useState<number>(200);
   const [top, setTop] = useState<number>(200);
   useEffect(() => {
@@ -32,30 +29,7 @@ const Arc: React.FC<childProps> = (props) => {
       draw();
     }
     //处理异步数据
-  }, [
-    scaleAll,
-    sliderx1,
-    slidery1,
-    rotate,
-    globalAlpha,
-    operation,
-    color,
-    colors,
-    lineDashx,
-    lineDashOffset,
-    linewidth,
-    lineDashy,
-    lineCap,
-    lineJoin,
-    turn,
-    changeTurn,
-    ctx,
-    canvasAll,
-    shadowBlur,
-    shadowOffsetY,
-    shadowColor,
-    shadowOffsetX,
-  ]);
+  }, [state]);
   function draw() {
     changeTurn("arc");
     let canvas: any = canvasAll.current;
@@ -66,25 +40,36 @@ const Arc: React.FC<childProps> = (props) => {
     ctx.rotate((rotate * Math.PI) / 180);
     ctx.translate(-left - sr / 2, -top - sr / 2);
     ctx.globalAlpha = globalAlpha;
-    ctx.lineWidth = linewidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = lineJoin;
     ctx.lineCap = lineCap;
-    ctx.strokeStyle = color;
+    var grad = ctx.createLinearGradient(0, 0, 500, 500);
+    if (colors) {
+      let colors1 = colors.split("-");
+      let a = 0;
+      for (let i = 0; i < colors1.length; i++) {
+        grad.addColorStop(a, colors1[i]);
+        a = a + 0.5;
+      }
+      ctx.strokeStyle = grad;
+    } else {
+      ctx.strokeStyle = color;
+    }
     ctx.shadowOffsetX = shadowOffsetX;
     ctx.shadowOffsetY = shadowOffsetY;
     ctx.shadowBlur = shadowBlur;
     ctx.shadowColor = shadowColor;
-    ctx.lineWidth = linewidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = lineJoin;
     ctx.lineCap = lineCap;
     ctx.globalCompositeOperation = operation;
     ctx.setLineDash([lineDashx, lineDashy]);
     ctx.lineDashOffset = lineDashOffset;
     ctx.beginPath();
-    ctx.arc(sliderx1, slidery1, sr, 0, Math.PI + Math.PI / 2, false);
+    ctx.arc(sliderX1, sliderY1, sr, 0, Math.PI + Math.PI / 2, false);
     ctx.stroke();
-    setLeft(sliderx1);
-    setTop(slidery1);
+    setLeft(sliderX1);
+    setTop(sliderY1);
     ctx.restore();
   }
   return (

@@ -1,30 +1,10 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { MouseControl } from "../control/mouseControl";
-import { imgProps } from "./receive";
-const ImgContent: React.FC<imgProps> = (props) => {
-  const {
-    scaleSlider,
-    sliderx,
-    slidery,
-    imgContent,
-    changeImgContent,
-    turn,
-    ctx,
-    changeTurn,
-    canvasAll,
-    rotate,
-    globalAlpha,
-    color,
-    colors,
-    shadowOffsetX,
-    shadowOffsetY,
-    shadowBlur,
-    shadowColor,
-    operation,
-    sliderx1,
-    slidery1,
-    scaleAll,
-  } = props;
+const ImgContent = (props: any) => {
+  const { ctx, canvasAll, state, imageState, turn, changeTurn, imgDispatch } =
+    props;
+  const { rotate, operation } = state;
+  const { scaleSlider, sliderX, sliderY, imgContent } = imageState;
   const [left, setLeft] = useState<number>(200);
   const [top, setTop] = useState<number>(200);
   const [scaleX, setScaleX] = useState<number>(1);
@@ -50,29 +30,7 @@ const ImgContent: React.FC<imgProps> = (props) => {
       draw();
     }
     //处理异步数据
-  }, [
-    scaleAll,
-    sliderx1,
-    slidery1,
-    rotate,
-    globalAlpha,
-    operation,
-    color,
-    colors,
-    turn,
-    changeTurn,
-    ctx,
-    scaleSlider,
-    sliderx,
-    slidery,
-    imgContent,
-    changeImgContent,
-    canvasAll,
-    shadowBlur,
-    shadowOffsetY,
-    shadowColor,
-    shadowOffsetX,
-  ]);
+  }, [state, imageState]);
   function draw() {
     changeTurn("img");
     let canvas: any = canvasAll.current;
@@ -89,7 +47,7 @@ const ImgContent: React.FC<imgProps> = (props) => {
       ctx.translate(left + sw / 2, top + sh / 2);
       ctx.rotate(((rotate + controlRotate) * Math.PI) / 180);
       ctx.translate(-left - sw / 2, -top - sh / 2);
-      ctx.drawImage(img, sliderx, slidery, w, h, left, top, sw, sh);
+      ctx.drawImage(img, sliderX, sliderY, w, h, left, top, sw, sh);
       ctx.restore();
       let x = left,
         y = top;
@@ -111,8 +69,8 @@ const ImgContent: React.FC<imgProps> = (props) => {
         x,
         y,
         isTransparent,
-        sliderx,
-        slidery,
+        sliderX,
+        sliderY,
         w,
         h,
         scaleSlider,
@@ -132,7 +90,9 @@ const ImgContent: React.FC<imgProps> = (props) => {
         type="text"
         placeholder="输入图片地址"
         value={imgContent}
-        onChange={(e) => changeImgContent(e.target.value)}
+        onChange={(e) =>
+          imgDispatch({ type: "imgContent", imgContent: e.target.value })
+        }
       ></input>
       <div>
         <button

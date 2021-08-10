@@ -1,11 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { childProps } from "./receive";
-const Tangle: React.FC<childProps> = (props) => {
+import React, { useEffect, useReducer, useState } from "react";
+const Tangle = (props: any) => {
+  const { ctx, canvasAll, state, turn, changeTurn } = props;
   const {
-    turn,
-    ctx,
-    changeTurn,
-    canvasAll,
     rotate,
     globalAlpha,
     color,
@@ -14,48 +10,25 @@ const Tangle: React.FC<childProps> = (props) => {
     shadowOffsetY,
     shadowBlur,
     shadowColor,
-    linewidth,
+    lineWidth,
     lineJoin,
     lineCap,
     operation,
     lineDashx,
     lineDashy,
     lineDashOffset,
-    sliderx1,
-    slidery1,
+    sliderX1,
+    sliderY1,
     scaleAll,
-  } = props;
-  const [left, setLeft] = useState<number>(0);
-  const [top, setTop] = useState<number>(0);
+  } = state;
+  const [left, setLeft] = useState<number>(200);
+  const [top, setTop] = useState<number>(200);
   useEffect(() => {
-    if (turn === "tangle") {
+    if (turn == "tangle") {
       draw();
     }
     //处理异步数据
-  }, [
-    scaleAll,
-    sliderx1,
-    slidery1,
-    rotate,
-    globalAlpha,
-    operation,
-    color,
-    colors,
-    lineDashx,
-    lineDashOffset,
-    linewidth,
-    lineDashy,
-    lineCap,
-    lineJoin,
-    turn,
-    changeTurn,
-    ctx,
-    canvasAll,
-    shadowBlur,
-    shadowOffsetY,
-    shadowColor,
-    shadowOffsetX,
-  ]);
+  }, [state, turn]);
   function draw() {
     changeTurn("tangle");
     let canvas: any = canvasAll.current;
@@ -84,7 +57,7 @@ const Tangle: React.FC<childProps> = (props) => {
     ctx.shadowOffsetY = shadowOffsetY;
     ctx.shadowBlur = shadowBlur;
     ctx.shadowColor = shadowColor;
-    ctx.lineWidth = linewidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = lineJoin;
     ctx.lineCap = lineCap;
     ctx.globalCompositeOperation = operation;
@@ -96,8 +69,8 @@ const Tangle: React.FC<childProps> = (props) => {
     ctx.lineTo(c * scaleAll + left, b * scaleAll + top);
     ctx.closePath();
     ctx.stroke();
-    setLeft(sliderx1);
-    setTop(slidery1);
+    setLeft(sliderX1);
+    setTop(sliderY1);
     ctx.restore();
   }
   return (

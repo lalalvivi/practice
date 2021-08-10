@@ -1,22 +1,20 @@
-import React from 'react';
-interface childProps{
-  rotate:number,
-  changeRotate:Function,
-}
-const  Rotate:React.FC<childProps>=(props)=> {
-    const {rotate,changeRotate}=props;
-    return (
-        <div>
-          <span>旋转：</span>
-          <input
-            type="range"
-            min="0"
-            max="360"
-            value={rotate}
-            onChange={(e) =>changeRotate( Number(e.target.value))}
-            step="1"
-          />
-        </div>
-    )
-}
+import React from "react";
+const Rotate = (props: any) => {
+  const { dispatch, state } = props;
+  return (
+    <div>
+      <span>旋转：</span>
+      <input
+        value={state.rotate}
+        type="range"
+        min="0"
+        max="360"
+        onChange={(e) =>
+          dispatch({ type: "rotate", rotate: Number(e.target.value) })
+        }
+        step="1"
+      />
+    </div>
+  );
+};
 export default Rotate;

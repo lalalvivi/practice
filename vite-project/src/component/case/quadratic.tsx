@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { childProps } from "./receive";
-const Quadratic: React.FC<childProps> = (props) => {
+const Quadratic = (props: any) => {
+  const { ctx, canvasAll, state, turn, changeTurn } = props;
   const {
-    turn,
-    ctx,
-    changeTurn,
-    canvasAll,
     rotate,
     globalAlpha,
     color,
@@ -14,71 +11,59 @@ const Quadratic: React.FC<childProps> = (props) => {
     shadowOffsetY,
     shadowBlur,
     shadowColor,
-    linewidth,
+    lineWidth,
     lineJoin,
     lineCap,
     operation,
     lineDashx,
     lineDashy,
     lineDashOffset,
-    sliderx1,
-    slidery1,
+    sliderX1,
+    sliderY1,
     scaleAll,
-  } = props;
+  } = state;
   useEffect(() => {
     if (turn === "quadratic") {
       draw();
     }
     //处理异步数据
-  }, [
-    scaleAll,
-    sliderx1,
-    slidery1,
-    rotate,
-    globalAlpha,
-    operation,
-    color,
-    colors,
-    lineDashx,
-    lineDashOffset,
-    linewidth,
-    lineDashy,
-    lineCap,
-    lineJoin,
-    turn,
-    changeTurn,
-    ctx,
-    canvasAll,
-    shadowBlur,
-    shadowOffsetY,
-    shadowColor,
-    shadowOffsetX,
-  ]);
+  }, [state]);
   function draw() {
     changeTurn("quadratic");
     let canvas: any = canvasAll.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
-    ctx.translate(sliderx1, slidery1);
+    ctx.translate(sliderX1, sliderY1);
     ctx.rotate((rotate * Math.PI) / 180);
-    ctx.translate(-sliderx1, -slidery1);
+    ctx.translate(-sliderX1, -sliderY1);
     ctx.globalAlpha = globalAlpha;
-    ctx.lineWidth = linewidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = lineJoin;
     ctx.lineCap = lineCap;
-    ctx.strokeStyle = color;
+    var grad = ctx.createLinearGradient(0, 0, 500, 500);
+    if (colors) {
+      let colors1 = colors.split("-");
+      let a = 0;
+      for (let i = 0; i < colors1.length; i++) {
+        grad.addColorStop(a, colors1[i]);
+        a = a + 0.5;
+      }
+      ctx.strokeStyle = grad;
+    } else {
+      ctx.strokeStyle = color;
+    }
     ctx.shadowOffsetX = shadowOffsetX;
     ctx.shadowOffsetY = shadowOffsetY;
     ctx.shadowBlur = shadowBlur;
     ctx.shadowColor = shadowColor;
-    ctx.lineWidth = linewidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = lineJoin;
     ctx.lineCap = lineCap;
     ctx.globalCompositeOperation = operation;
     ctx.setLineDash([lineDashx, lineDashy]);
     ctx.lineDashOffset = lineDashOffset;
     ctx.beginPath();
-    ctx.moveTo(sliderx1, slidery1);
+    ctx.moveTo(sliderX1, sliderY1);
     ctx.quadraticCurveTo(
       50 * scaleAll,
       75 * scaleAll,

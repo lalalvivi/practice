@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
-import { childProps } from "./receive";
-const Line: React.FC<childProps> = (props) => {
+const Line = (props: any) => {
+  const { ctx, canvasAll, state, turn, changeTurn } = props;
   const {
-    turn,
-    ctx,
-    changeTurn,
-    canvasAll,
     rotate,
     globalAlpha,
     color,
@@ -14,54 +10,31 @@ const Line: React.FC<childProps> = (props) => {
     shadowOffsetY,
     shadowBlur,
     shadowColor,
-    linewidth,
+    lineWidth,
     lineJoin,
     lineCap,
     operation,
     lineDashx,
     lineDashy,
     lineDashOffset,
-    sliderx1,
-    slidery1,
+    sliderX1,
+    sliderY1,
     scaleAll,
-  } = props;
+  } = state;
   useEffect(() => {
     if (turn === "line") {
       draw();
     }
     //处理异步数据
-  }, [
-    scaleAll,
-    sliderx1,
-    slidery1,
-    rotate,
-    globalAlpha,
-    operation,
-    color,
-    colors,
-    lineDashx,
-    lineDashOffset,
-    linewidth,
-    lineDashy,
-    lineCap,
-    lineJoin,
-    turn,
-    changeTurn,
-    ctx,
-    canvasAll,
-    shadowBlur,
-    shadowOffsetY,
-    shadowColor,
-    shadowOffsetX,
-  ]);
+  }, [state]);
   function draw() {
     changeTurn("line");
     let canvas: any = canvasAll.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
-    ctx.translate(sliderx1, slidery1);
+    ctx.translate(sliderX1, sliderY1);
     ctx.rotate((rotate * Math.PI) / 180);
-    ctx.translate(-sliderx1, -slidery1);
+    ctx.translate(-sliderX1, -sliderY1);
     var grad = ctx.createLinearGradient(0, 0, 500, 500);
     if (colors) {
       let colors1 = colors.split("-");
@@ -79,15 +52,15 @@ const Line: React.FC<childProps> = (props) => {
     ctx.shadowBlur = shadowBlur;
     ctx.shadowColor = shadowColor;
     ctx.globalAlpha = globalAlpha;
-    ctx.lineWidth = linewidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = lineJoin;
     ctx.lineCap = lineCap;
     ctx.globalCompositeOperation = operation;
     ctx.setLineDash([lineDashx, lineDashy]);
     ctx.lineDashOffset = lineDashOffset;
     ctx.beginPath();
-    ctx.lineTo(sliderx1 * scaleAll, slidery1 * scaleAll);
-    ctx.lineTo(sliderx1 * scaleAll, (100 + slidery1) * scaleAll);
+    ctx.lineTo(sliderX1 * scaleAll, sliderY1 * scaleAll);
+    ctx.lineTo(sliderX1 * scaleAll, (100 + sliderY1) * scaleAll);
     ctx.stroke();
     ctx.restore();
   }

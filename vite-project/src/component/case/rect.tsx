@@ -1,14 +1,7 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
-import { MouseControl } from "../control/mouseControl";
-import { childProps } from "./receive";
-import { appContext } from "../../App";
-
-function Rect() {
+import React, { useEffect, useState, useCallback, useReducer } from "react";
+const Rect = (props: any) => {
+  const { ctx, canvasAll, state, turn, changeTurn } = props;
   const {
-    ctx,
-    turn,
-    changeTurn,
-    canvasAll,
     rotate,
     globalAlpha,
     color,
@@ -17,62 +10,25 @@ function Rect() {
     shadowOffsetY,
     shadowBlur,
     shadowColor,
-    linewidth,
+    lineWidth,
     lineJoin,
     lineCap,
     operation,
     lineDashx,
     lineDashy,
     lineDashOffset,
-    sliderx1,
-    slidery1,
+    sliderX1,
+    sliderY1,
     scaleAll,
-  } = useContext(appContext);
+  } = state;
   const [left, setLeft] = useState<number>(200);
   const [top, setTop] = useState<number>(200);
-  const [reUse, setReUse] = useState<boolean>(false);
-  const [scale, setScale] = useState<number>(1);
-  const changeReUse = useCallback((code: boolean) => {
-    setReUse(code);
-  }, []);
-  const changeLeft = useCallback((code: number) => {
-    setLeft(code);
-  }, []);
-  const changeTop = useCallback((code: number) => {
-    setTop(code);
-  }, []);
-  const changeScale = useCallback((code: number) => {
-    setScale(code);
-  }, []);
   useEffect(() => {
-    if (turn === "rect") {
+    if (turn == "rect") {
       draw();
     }
     //处理异步数据
-  }, [
-    scaleAll,
-    sliderx1,
-    slidery1,
-    rotate,
-    globalAlpha,
-    operation,
-    color,
-    colors,
-    lineDashx,
-    lineDashOffset,
-    linewidth,
-    lineDashy,
-    lineCap,
-    lineJoin,
-    turn,
-    changeTurn,
-    ctx,
-    canvasAll,
-    shadowBlur,
-    shadowOffsetY,
-    shadowColor,
-    shadowOffsetX,
-  ]);
+  }, [state]);
   function draw() {
     changeTurn("rect");
     let canvas: any = canvasAll.current;
@@ -105,19 +61,16 @@ function Rect() {
     ctx.shadowOffsetY = shadowOffsetY;
     ctx.shadowBlur = shadowBlur;
     ctx.shadowColor = shadowColor;
-    ctx.lineWidth = linewidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = lineJoin;
     ctx.lineCap = lineCap;
     ctx.globalCompositeOperation = operation;
     ctx.setLineDash([lineDashx, lineDashy]);
     ctx.lineDashOffset = lineDashOffset;
-    ctx.strokeRect(sliderx1, slidery1, sw, sh);
-    setLeft(sliderx1);
-    setTop(slidery1);
+    ctx.strokeRect(sliderX1, sliderY1, sw, sh);
+    setLeft(sliderX1);
+    setTop(sliderY1);
     ctx.restore();
-    let x = left,
-      y = top;
-    let isTransparent = true;
     // MouseControl('rect',changeScale,changeLeft,changeTop,canvas,ctx,rotate,sw,sh,x,y,isTransparent);
   }
   return (
@@ -127,5 +80,5 @@ function Rect() {
       </button>
     </div>
   );
-}
+};
 export default Rect;

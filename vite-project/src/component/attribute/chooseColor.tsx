@@ -1,15 +1,6 @@
 import React, { useMemo } from "react";
-interface childProps {
-  canvasAll: React.RefObject<HTMLCanvasElement>;
-  selectedColor: React.RefObject<HTMLDivElement>;
-  changeActive: Function;
-  changeColor: Function;
-  active: boolean;
-  ctx: any;
-}
-
-const ChooseColor: React.FC<childProps> = (props) => {
-  const { changeActive, active, ctx, changeColor, canvasAll, selectedColor } =
+const ChooseColor = (props: any) => {
+  const { changeActive, active, ctx, dispatch, canvasAll, selectedColor } =
     props;
   useMemo(() => {
     choose();
@@ -27,7 +18,7 @@ const ChooseColor: React.FC<childProps> = (props) => {
           data[3] / 255
         })`;
         // selectedColor.current.style.backgroundColor = rgba;
-        changeColor(rgba);
+        dispatch({ type: "color", color: rgba });
         return rgba;
       }
       function select(event: any) {

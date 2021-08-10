@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
-import { childProps } from "./receive";
-const PathLine: React.FC<childProps> = (props) => {
+const PathLine = (props: any) => {
+  const { ctx, canvasAll, state, turn, changeTurn } = props;
   const {
-    turn,
-    ctx,
-    changeTurn,
-    canvasAll,
     rotate,
     globalAlpha,
     color,
@@ -14,61 +10,49 @@ const PathLine: React.FC<childProps> = (props) => {
     shadowOffsetY,
     shadowBlur,
     shadowColor,
-    linewidth,
+    lineWidth,
     lineJoin,
     lineCap,
     operation,
     lineDashx,
     lineDashy,
     lineDashOffset,
-    sliderx1,
-    slidery1,
+    sliderX1,
+    sliderY1,
     scaleAll,
-  } = props;
+  } = state;
   useEffect(() => {
     if (turn === "pathLine") {
       draw();
     }
     //处理异步数据
-  }, [
-    scaleAll,
-    sliderx1,
-    slidery1,
-    rotate,
-    globalAlpha,
-    operation,
-    color,
-    colors,
-    lineDashx,
-    lineDashOffset,
-    linewidth,
-    lineDashy,
-    lineCap,
-    lineJoin,
-    turn,
-    changeTurn,
-    ctx,
-    canvasAll,
-    shadowBlur,
-    shadowOffsetY,
-    shadowColor,
-    shadowOffsetX,
-  ]);
+  }, [state]);
   function draw() {
     changeTurn("pathLine");
     let canvas: any = canvasAll.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
-    ctx.translate(sliderx1, slidery1);
+    ctx.translate(sliderX1, sliderY1);
     ctx.rotate((rotate * Math.PI) / 180);
-    ctx.translate(-sliderx1, -slidery1);
-    ctx.strokeStyle = color;
+    ctx.translate(-sliderX1, -sliderY1);
+    var grad = ctx.createLinearGradient(0, 0, 500, 500);
+    if (colors) {
+      let colors1 = colors.split("-");
+      let a = 0;
+      for (let i = 0; i < colors1.length; i++) {
+        grad.addColorStop(a, colors1[i]);
+        a = a + 0.5;
+      }
+      ctx.strokeStyle = grad;
+    } else {
+      ctx.strokeStyle = color;
+    }
     ctx.shadowOffsetX = shadowOffsetX;
     ctx.shadowOffsetY = shadowOffsetY;
     ctx.shadowBlur = shadowBlur;
     ctx.shadowColor = shadowColor;
     ctx.globalAlpha = globalAlpha;
-    ctx.lineWidth = linewidth;
+    ctx.lineWidth = lineWidth;
     ctx.lineJoin = lineJoin;
     ctx.lineCap = lineCap;
     ctx.globalCompositeOperation = operation;

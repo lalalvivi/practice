@@ -88,20 +88,22 @@ function MouseControl(
       ChooseCase(name, controlRotate, rotate, x, y, sh, sw);
       drawBorder(ctx, controlRotate + rotate, x, y, sw, sh);
     }
-    // 鼠标变换
-    isControl = controlChange(
-      e,
-      x,
-      y,
-      sw,
-      sh,
-      canvas,
-      rotate + controlRotate,
-      clickFlag,
-      isControl
-    );
-    console.log(isControl);
+    if (isControl === "move" || isControl === "over" || e.which != 1) {
+      // 鼠标变换
+      console.log(isControl);
 
+      isControl = controlChange(
+        e,
+        x,
+        y,
+        sw,
+        sh,
+        canvas,
+        rotate + controlRotate,
+        clickFlag,
+        isControl
+      );
+    }
     controlScaleChange();
     // 鼠标拖动放大缩小
     function controlScaleChange() {
@@ -194,6 +196,11 @@ function MouseControl(
         // controlArea(e, x, y, sw, sh, rotate);
       }
     }
+  };
+  // 鼠标松开操作
+  canvas.onmouseup = function (e: any) {
+    // 松开置为over
+    isControl = "over";
   };
   // 图片或者矩形选择
   function ChooseCase(

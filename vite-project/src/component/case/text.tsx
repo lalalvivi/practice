@@ -1,69 +1,43 @@
 import React, { useEffect } from "react";
-import { textProps } from "./receive";
-
-const TextContent: React.FC<textProps> = (props) => {
+const TextContent = (props: any) => {
+  const { ctx, canvasAll, state, txState, turn, changeTurn, textDispatch } =
+    props;
+  const {
+    rotate,
+    globalAlpha,
+    color,
+    colors,
+    shadowOffsetX,
+    shadowOffsetY,
+    shadowBlur,
+    shadowColor,
+    operation,
+    sliderX1,
+    sliderY1,
+    scaleAll,
+  } = state;
   const {
     fontSize,
     fontFamily,
     direction,
     textAlign,
     textBaseline,
-    turn,
     textContent,
-    changeTextContent,
-    ctx,
-    changeTurn,
-    canvasAll,
-    rotate,
-    globalAlpha,
-    color,
-    colors,
-    shadowOffsetX,
-    shadowOffsetY,
-    shadowBlur,
-    shadowColor,
-    operation,
-    sliderx1,
-    slidery1,
-    scaleAll,
-  } = props;
+  } = txState;
   useEffect(() => {
     if (turn === "text") {
       draw();
     }
     //处理异步数据
-  }, [
-    scaleAll,
-    sliderx1,
-    slidery1,
-    rotate,
-    globalAlpha,
-    operation,
-    color,
-    colors,
-    turn,
-    changeTextContent,
-    changeTurn,
-    ctx,
-    fontSize,
-    direction,
-    textAlign,
-    fontFamily,
-    textBaseline,
-    canvasAll,
-    shadowBlur,
-    shadowOffsetY,
-    shadowColor,
-    shadowOffsetX,
-  ]);
+  }, [state, txState]);
   function draw() {
     changeTurn("text");
     let canvas: any = canvasAll.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.save();
-    ctx.translate(sliderx1, slidery1);
+    ctx.translate(sliderX1, sliderY1);
     ctx.rotate((rotate * Math.PI) / 180);
-    ctx.translate(-sliderx1, -slidery1);
+    ctx.translate(-sliderX1, -sliderY1);
     ctx.globalAlpha = globalAlpha;
     ctx.fillStyle = color;
     ctx.shadowOffsetX = shadowOffsetX;
@@ -75,17 +49,18 @@ const TextContent: React.FC<textProps> = (props) => {
     ctx.textBaseline = textBaseline;
     ctx.textAlign = textAlign;
     ctx.globalCompositeOperation = operation;
-    ctx.fillText(textContent, sliderx1, slidery1);
+    ctx.fillText(textContent, sliderX1, sliderY1);
     ctx.restore();
   }
   return (
     <div>
       <input
         type="text"
-        id="text"
         placeholder="输入文字"
         value={textContent}
-        onChange={(e) => changeTextContent(e.target.value)}
+        onChange={(e) =>
+          textDispatch({ type: "textContent", textContent: e.target.value })
+        }
       ></input>
       <div>
         <button type="button" onClick={draw}>
