@@ -1,5 +1,7 @@
 import AllComponent from '../component'
 import Canvas from '../component/Canvas'
+import fabric from '../component/fabric/fabric'
+import filter from '../component/fabric/filter'
 import Webgl from '../component/webgl'
 
 
@@ -16,6 +18,17 @@ const routes = [ {
              {
                 path: '/webgl',
                 component: Webgl,
+                routes: [],
+            },
+             {
+                path: '/fabricCase',
+                component: fabric,
+                routes: [],
+                exact: true
+            },
+             {
+                path: '/filter',
+                component: filter,
                 routes: [],
             },
                 ],

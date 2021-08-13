@@ -1,0 +1,35 @@
+.oButton {
+  display: flex;
+  button,
+  input {
+    width: 100px;
+    height: 28px;
+  }
+  .left {
+    width: 30%;
+  }
+}
+.rect,
+.circle,
+.text,
+.polyLine,
+.eraser {
+  background-repeat: no-repeat;
+  background-size: 30px 25px;
+  background-position: center;
+}
+.rect {
+  background-image: url("../../img/rect.png");
+}
+.circle {
+  background-image: url("../../img/circle.png");
+}
+.text {
+  background-image: url("../../img/text.png");
+}
+.polyLine {
+  background-image: url("../../img/polyLine.png");
+}
+.eraser {
+  background-image: url("../../img/eraser.png");
+}
