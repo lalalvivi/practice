@@ -6,23 +6,22 @@ import Filter from "./filter";
 function Fabric() {
   const [status, setStatus] = useState<boolean>(true);
   const [filterValues, setFilterValues] = useState<any>([]);
+  const [Noise, setNoise] = useState<number>(0);
+  const [Saturation, setSaturation] = useState<number>(0);
+  const [Hue, setHue] = useState<number>(0);
   const canvasRef = useRef(null);
   const canvasWebgl = React.useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     initCanvas();
-    console.log(canvasWebgl);
   }, [status]);
   useEffect(() => {
-    console.log(canvasWebgl);
-  }, []);
+    chooseFilter();
+  }, [filterValues, Noise, Hue, Saturation]);
   let canvas: any;
   let imgContent =
     "https://img0.baidu.com/it/u=1242053365,2901037121&fm=26&fmt=auto&gp=0.jpg";
   let points: any = [];
   let brushStyle = "PencilBrush";
-  let Noise = 5;
-  let Saturation = 5;
-  let Hue = 5;
   let lineSize = 5;
   let lineColor = "black";
   let shadowColor = "black";
@@ -222,7 +221,7 @@ function Fabric() {
   //滤镜修改
   function filterChange(checkedValues: any) {
     setFilterValues(checkedValues);
-    chooseFilter();
+    // chooseFilter();
   }
   // 监听对象选中取消事件
   function objectChoose() {
@@ -242,7 +241,9 @@ function Fabric() {
       drawObjects.map((item: any) => {
         if (item.type == "image") {
           item.filters = [];
+
           for (var i of filterValues) {
+            console.log(i);
             switch (i) {
               case "Saturation":
                 item.filters.push(
@@ -266,6 +267,13 @@ function Fabric() {
                 );
                 break;
               default:
+                item.filters.push(
+                  new fabric.Image.filters.Noise({
+                    noise: 0,
+                  })
+                );
+                console.log(41);
+
                 break;
             }
           }
@@ -381,7 +389,7 @@ function Fabric() {
   }
   return (
     <div className="oButton">
-      <div className="left">
+      <div className="left1">
         <button
           type="button"
           className="rect"
@@ -510,11 +518,10 @@ function Fabric() {
               type="range"
               disabled={status}
               defaultValue={Saturation}
-              min="2"
-              max="10"
+              min="0"
+              max="1"
               onChange={(e) => {
-                Saturation = Number(e.target.value);
-                chooseFilter();
+                setSaturation(Number(e.target.value));
               }}
               step="0.1"
             />
@@ -523,11 +530,10 @@ function Fabric() {
               type="range"
               disabled={status}
               defaultValue={Hue}
-              min="2"
-              max="10"
+              min="0"
+              max="360"
               onChange={(e) => {
-                Hue = Number(e.target.value);
-                chooseFilter();
+                setHue(Number(e.target.value));
               }}
               step="0.1"
             />
@@ -536,11 +542,10 @@ function Fabric() {
               disabled={status}
               type="range"
               defaultValue={Noise}
-              min="2"
+              min="0"
               max="100"
               onChange={(e) => {
-                Noise = Number(e.target.value);
-                chooseFilter();
+                setNoise(Number(e.target.value));
               }}
               step="0.1"
             />

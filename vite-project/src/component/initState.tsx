@@ -20,7 +20,7 @@ const initState = {
   scaleAll: 1,
 };
 
-function reducer(state: any, action: any) {
+function reducer(state: Object, action: any) {
   switch (action.type) {
     case "alpha":
       return {

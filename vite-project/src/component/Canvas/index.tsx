@@ -5,7 +5,7 @@ import React, {
   createContext,
   useReducer,
 } from "react";
-import "./canvas.less";
+import "./canvas.scss";
 import Color from "../attribute/color";
 import Dotted from "../attribute/dotted";
 import LineStyle from "../attribute/lineStyle";
@@ -36,6 +36,9 @@ import {
   textState,
 } from "../initState";
 import Rect from "../case/rect";
+import Tree from "../case/tree";
+import Oval from "../case/oval";
+import Triangulations from "../case/triangluations";
 export const appContext = createContext({});
 function Canvas() {
   const [state, dispatch] = useReducer(reducer, initState);
@@ -116,6 +119,27 @@ function Canvas() {
           turn={turn}
           changeTurn={changeTurn}
         />
+        {/* 树 */}
+        <Tree
+          ctx={ctx}
+          canvasAll={canvasAll}
+          turn={turn}
+          changeTurn={changeTurn}
+        ></Tree>
+        {/* 椭圆.. */}
+        <Oval
+          ctx={ctx}
+          canvasAll={canvasAll}
+          turn={turn}
+          changeTurn={changeTurn}
+        ></Oval>
+        {/* 三角剖分 */}
+        <Triangulations
+          ctx={ctx}
+          canvasAll={canvasAll}
+          turn={turn}
+          changeTurn={changeTurn}
+        ></Triangulations>
         <TextContent
           ctx={ctx}
           canvasAll={canvasAll}
@@ -163,6 +187,7 @@ function Canvas() {
             active={active}
             ctx={ctx}
             dispatch={dispatch}
+            state={state}
             changeActive={changeActive}
           ></ChooseColor>
         </div>

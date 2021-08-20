@@ -1,13 +1,21 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 const ChooseColor = (props: any) => {
-  const { changeActive, active, ctx, dispatch, canvasAll, selectedColor } =
-    props;
-  useMemo(() => {
-    choose();
+  const {
+    changeActive,
+    active,
+    ctx,
+    dispatch,
+    canvasAll,
+    selectedColor,
+    state,
+  } = props;
+  useEffect(() => {
     //处理异步数据
+    choose();
   }, [active]);
   function choose() {
     console.log(active);
+
     if (active) {
       function pick(event: any, destination: any) {
         var x = event.layerX;
@@ -18,11 +26,13 @@ const ChooseColor = (props: any) => {
           data[3] / 255
         })`;
         // selectedColor.current.style.backgroundColor = rgba;
-        dispatch({ type: "color", color: rgba });
+
         return rgba;
       }
       function select(event: any) {
-        pick(event, selectedColor.current);
+        let color = pick(event, selectedColor.current);
+        // state.color = color;
+        dispatch({ type: "color", color: color });
       }
       let canvas: any = canvasAll.current;
       let selectedColor: any = canvasAll.current;

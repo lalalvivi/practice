@@ -1,9 +1,9 @@
 import React from "react";
 import Router from "./router";
-import "./App.less";
+import "./App.scss";
 function App() {
   return (
-    <div className="all">
+    <div>
       <Router />
     </div>
   );

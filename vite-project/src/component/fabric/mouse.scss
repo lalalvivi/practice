@@ -5,8 +5,11 @@
     width: 100px;
     height: 28px;
   }
-  .left {
-    width: 30%;
+  .left1 {
+    width: 100px;
+    display: flex;
+    flex-direction: column;
+    margin-right: 10px;
   }
 }
 .rect,

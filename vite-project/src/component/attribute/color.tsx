@@ -11,9 +11,9 @@ const Color = (props: any) => {
       />
       <span>渐变颜色：</span>
       <input
-        value={state.colors}
+        defaultValue={state.colors}
         type="text"
-        onChange={(e) => dispatch({ type: "colors", colors: e.target.value })}
+        onBlur={(e) => dispatch({ type: "colors", colors: e.target.value })}
       />
     </div>
   );

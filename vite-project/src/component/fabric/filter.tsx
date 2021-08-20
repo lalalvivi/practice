@@ -1,4 +1,5 @@
 import React from "react";
+import "./filter.scss";
 function Filter() {
   const canvasWebgl = React.useRef<HTMLCanvasElement>(null);
   let imgContent =
@@ -169,7 +170,6 @@ function Filter() {
       //以下配置就不需要要求图片的尺寸了
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-
       //设置纹素格式，jpg格式对应gl.RGB
       gl.texImage2D(
         gl.TEXTURE_2D,

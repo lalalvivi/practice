@@ -1,5 +1,4 @@
 .all {
-  
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -18,11 +17,11 @@
       display: flex;
       flex-wrap: wrap;
     }
-    .canvasAll{
+    .canvasAll {
       width: 100%;
-      background-color:grey;
-      .canvas{
-        background-color:white;
+      background-color: grey;
+      .canvas {
+        background-color: white;
       }
     }
   }

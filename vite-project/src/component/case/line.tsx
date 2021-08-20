@@ -41,7 +41,7 @@ const Line = (props: any) => {
       let a = 0;
       for (let i = 0; i < colors1.length; i++) {
         grad.addColorStop(a, colors1[i]);
-        a = a + 0.5;
+        a = a + 1 / colors1.length;
       }
       ctx.strokeStyle = grad;
     } else {
