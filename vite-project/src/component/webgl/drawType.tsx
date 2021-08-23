@@ -1,15 +1,12 @@
 import React from "react";
+import { parametric } from "../tool/parametric";
 interface childProps {
   canvasWebgl: React.RefObject<HTMLCanvasElement>;
-  drawN: number;
-  changeDrawN: Function;
+  // drawN: number;
+  // changeDrawN: Function;
 }
-const DrawShape: React.FC<childProps> = (props) => {
-  const { canvasWebgl, changeDrawN, drawN } = props;
-  // useEffect(() => {
-  //   if(turn==='webgl'){ ngon(3)}
-  //     //处理异步数据
-  //   }, [turn,canvasAll,changeTurn]);
+const DrawType: React.FC<childProps> = (props) => {
+  const { canvasWebgl } = props;
   // 顶点着色器代码(决定顶在哪里，大小)
   var VSHADER_SOURCE =
     "attribute vec4 a_Position;\n" +
@@ -40,34 +37,24 @@ const DrawShape: React.FC<childProps> = (props) => {
     context.compileShader(shader);
     return shader;
   }
-  //绘制正n边形
-  function ngon(n: number) {
+  //根据方程绘制图形
+  function drawType() {
     var canvas: any = canvasWebgl.current;
     canvas.onmousedown = null;
     var context = canvas.getContext("webgl", {});
     var program = createProgram(context, VSHADER_SOURCE, FSHADER_SOURCE);
     context.program = program;
     context.useProgram(program);
-    if (n == 4) {
-      var vertices = new Float32Array([
-        -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5,
-      ]);
-    } else {
-      var vertices = new Float32Array(n * 2);
-      var angle = 0; // 开始的弧度
-      var r = 0.5; // 圆的半径
-      // θ值
-      var stepAngle = (360 / n) * (Math.PI / 180);
-      for (var i = 0; i < n * 2; i += 2) {
-        // 计算顶点x坐标
-        vertices[i] = r * Math.cos(angle);
-        // 计算顶点y坐标
-        vertices[i + 1] = r * Math.sin(angle);
-        angle += stepAngle;
-      }
-      console.log(vertices);
+    const para = parametric(
+      (t: number) => 25 * t,
+      (t: number) => 25 * t ** 2
+    );
+    let points = para(-1.5, 1.5).points.flat();
+    var vertices = new Float32Array(points.length);
+    for (var i = 0; i < points.length; i++) {
+      vertices[i] = points[i] / 80;
     }
-
+    console.log(vertices);
     // 创建一个缓存对象，用于存放顶点数据
     var vertexBuffer = context.createBuffer();
     // 绑定缓存对象
@@ -84,29 +71,25 @@ const DrawShape: React.FC<childProps> = (props) => {
     context.clearColor(0.0, 0.0, 0.0, 0.0);
     // 清除 <canvas>
     context.clear(context.COLOR_BUFFER_BIT);
-    // 画n个点
-    if (n == 4) {
-      context.drawArrays(context.TRIANGLE_STRIP, 0, n);
-    } else {
-      context.drawArrays(context.TRIANGLE_FAN, 0, n);
-    }
+    // 画点
+    context.drawArrays(context.POINTS, 0, points.length);
   }
   return (
     <div>
-      <input
+      {/* <input
         type="number"
         value={drawN}
         onChange={(e) => changeDrawN(e.target.value)}
-      />
+      /> */}
       <button
         type="button"
         onClick={() => {
-          ngon(drawN);
+          drawType();
         }}
       >
-        绘制正n边形
+        绘制图形或曲线
       </button>
     </div>
   );
 };
-export default DrawShape;
+export default DrawType;

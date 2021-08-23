@@ -2,6 +2,7 @@ import React, { memo, useState, useCallback } from "react";
 import AnimationDraw from "./animation";
 import Combine from "./combine";
 import DrawShape from "./drawShape";
+import DrawType from "./drawType";
 import Grad from "./grad";
 import MouseDraw from "./mouseDraw";
 import Progress from "./progress";
@@ -25,6 +26,7 @@ export default memo(function Webgl() {
           changeDrawN={changeDrawN}
           canvasWebgl={canvasWebgl}
         />
+        <DrawType canvasWebgl={canvasWebgl}></DrawType>
       </div>
       <div className="right">
         <canvas

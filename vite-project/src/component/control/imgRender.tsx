@@ -1,3 +1,32 @@
+import { newVector } from "../tool/newVector";
+// 向量
+// const vPosition = (
+//   sw: number,
+//   sh: number,
+//   x: number,
+//   y: number,
+//   rotate: number,
+//   points: any
+// ) => {
+//   // 左上角
+//   var xLt = x;
+//   var yLt = y;
+//   var Lt = new newVector(xLt, yLt);
+//   // 右上角
+//   var xRt = x + sw;
+//   var yRt = y;
+//   var Rt = new newVector(xRt, yRt);
+//   // 右下角
+//   var xRb = x + sw;
+//   var yRb = y + sh;
+//   var Rb = new newVector(xRb, yRb);
+//   // 左下角
+//   var xLb = x;
+//   var yLb = y + sh;
+//   var Lb = new newVector(xLb, yLb);
+//   // topLine
+//   Lt.sub(Rt).cross(Lt.sub(Rt));
+// };
 //四个坐标点定位区域
 const position = (
   sw: number,

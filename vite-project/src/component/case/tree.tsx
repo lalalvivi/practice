@@ -1,8 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Vector2D } from "../tool/vector2D";
+import { newVector } from "../tool/newVector";
 const Tree = (props: any) => {
   const { ctx, canvasAll, turn, changeTurn } = props;
   function draw() {
+    let a = new Vector2D(3, 4);
+    let a1 = new newVector(3, 4);
+    let a2 = new newVector(4, 4);
+    console.log(a.normalize(), a1.normal());
     let p1 = new Promise<string>((resolve, reject) => {
       setTimeout(() => {
         console.log(4723940);
@@ -37,7 +42,8 @@ const Tree = (props: any) => {
     ctx.translate(0, canvas.height / 2);
     ctx.scale(1, -1);
     ctx.lineCap = "round";
-    const v0 = new Vector2D(256, 0);
+    // const v0 = new Vector2D(256, 0);
+    const v0 = new newVector(256, 0);
     drawBranch(ctx, v0, 50, 10, 1, 3);
     ctx.restore();
   }
@@ -49,12 +55,13 @@ const Tree = (props: any) => {
     dir: number,
     bias: number
   ) {
-    const v = new Vector2D().rotate(dir).scale(length);
+    // const v = new Vector2D().rotate(dir).scale(length);
+    const v = new newVector().rotate(dir).multiply(length);
     const v1 = v0.copy().add(v);
     context.lineWidth = thickness;
     context.beginPath();
-    context.moveTo(...v0);
-    context.lineTo(...v1);
+    context.moveTo(...[v0.x, v0.y]);
+    context.lineTo(...[v1.x, v1.y]);
     context.stroke();
     if (thickness > 2) {
       const left =
@@ -70,7 +77,7 @@ const Tree = (props: any) => {
       const th = Math.random() * 6 + 3;
       context.lineWidth = th;
       context.beginPath();
-      context.moveTo(...v1);
+      context.moveTo(...[v1.x, v1.y]);
       context.lineTo(v1.x, v1.y - 2);
       context.stroke();
       context.restore();
