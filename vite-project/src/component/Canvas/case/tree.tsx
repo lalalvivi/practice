@@ -1,40 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Vector2D } from "../tool/vector2D";
-import { newVector } from "../tool/newVector";
+import { Vector2D } from "../../tool/vector2D";
+import { newVector } from "../../tool/newVector";
 const Tree = (props: any) => {
   const { ctx, canvasAll, turn, changeTurn } = props;
   function draw() {
-    let a = new Vector2D(3, 4);
-    let a1 = new newVector(3, 4);
-    let a2 = new newVector(4, 4);
-    console.log(a.normalize(), a1.normal());
-    let p1 = new Promise<string>((resolve, reject) => {
-      setTimeout(() => {
-        console.log(4723940);
-        resolve("成功");
-      }, 1001);
-    });
-    let p = new Promise<any>((resolve, reject) => {
-      setTimeout(() => {
-        let a = Math.random() * 10;
-        if (a > 5) {
-          resolve(a);
-        } else {
-          reject("数字太小");
-        }
-      }, 1000);
-    });
-    p.then((result) => {
-      console.log("resolved", result);
-    }).catch((err) => {
-      console.log("rejected", err);
-    });
-    let b = Promise.race([p, p1]);
-    b.then((result) => {
-      console.log("resolved", result);
-    }).catch((err) => {
-      console.log("rejected", err);
-    });
     changeTurn("tree");
     let canvas: any = canvasAll.current;
     ctx.clearRect(0, 0, canvas.width, canvas.height);

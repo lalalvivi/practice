@@ -1,18 +1,17 @@
 import React from "react";
-import { drawWebgl } from "../tool/parametric";
+import { earcut } from "../tool/earcut";
+// import { earcut } from "../tool/earcut";
 interface childProps {
   canvasWebgl: React.RefObject<HTMLCanvasElement>;
-  type: string;
-  changeType: Function;
 }
-const DrawType: React.FC<childProps> = (props) => {
-  const { canvasWebgl, type, changeType } = props;
+const Irregular: React.FC<childProps> = (props) => {
+  const { canvasWebgl } = props;
   // 顶点着色器代码(决定顶在哪里，大小)
   var VSHADER_SOURCE =
     "attribute vec4 a_Position;\n" +
     "void main() {\n" +
     "  gl_Position = a_Position;\n" + // 设置顶点的位置
-    "  gl_PointSize = 10.0;\n" + // 设置顶点的大小
+    "  gl_PointSize = 1.0;\n" + // 设置顶点的大小
     "}\n";
 
   // 片元着色器代码（给像素上色）
@@ -38,18 +37,29 @@ const DrawType: React.FC<childProps> = (props) => {
     return shader;
   }
   //根据方程绘制图形
-  function drawType() {
+  function draw() {
     var canvas: any = canvasWebgl.current;
     canvas.onmousedown = null;
     var context = canvas.getContext("webgl", {});
     var program = createProgram(context, VSHADER_SOURCE, FSHADER_SOURCE);
     context.program = program;
     context.useProgram(program);
-    let points = drawWebgl(type);
-    var vertices = new Float32Array(points);
-    for (var i = 0; i < points.length; i++) {
-      vertices[i] = points[i] / 100;
-    }
+    const v = [
+      [-0.7, 0.5],
+      [-0.4, 0.3],
+      [-0.25, 0.71],
+      [-0.1, 0.56],
+      [-0.1, 0.13],
+      [0.4, 0.21],
+      [0, -0.6],
+      [-0.3, -0.3],
+      [-0.6, -0.3],
+      [-0.45, 0.0],
+    ];
+    const points = v.flat();
+    const triangle = earcut(points);
+    const vertices = new Float32Array(points);
+    const cells = new Uint16Array(triangle);
     // 创建一个缓存对象，用于存放顶点数据
     var vertexBuffer = context.createBuffer();
     // 绑定缓存对象
@@ -62,39 +72,36 @@ const DrawType: React.FC<childProps> = (props) => {
     context.vertexAttribPointer(a_Position, 2, context.FLOAT, false, 0, 0);
     // 允许变量从 ARRAY_BUFFER目标上绑定的缓冲区对象获取数据
     context.enableVertexAttribArray(a_Position);
+    const cellsBuffer = context.createBuffer();
+    context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, cellsBuffer);
+    context.bufferData(
+      context.ELEMENT_ARRAY_BUFFER,
+      cells,
+      context.STATIC_DRAW
+    );
     // 每一次重绘时的背景色
     context.clearColor(0.0, 0.0, 0.0, 0.0);
     // 清除 <canvas>
     context.clear(context.COLOR_BUFFER_BIT);
     // 画点
-    // context.drawElements(
-    //   context.LINE_STRIP,
-    //   cells.length,
-    //   context.UNSIGNED_SHORT,
-    //   0
-    // );
-    context.drawArrays(context.LINE_STRIP, 0, points.length / 2);
+    context.drawElements(
+      context.TRIANGLES,
+      cells.length,
+      context.UNSIGNED_SHORT,
+      0
+    );
   }
   return (
     <div>
-      <span>选择图形：</span>
-      <select value={type} onChange={(e) => changeType(e.target.value)}>
-        <option value="椭圆">椭圆</option>
-        <option value="抛物线">抛物线 </option>
-        <option value="阿基米德螺旋线">阿基米德螺旋线</option>
-        <option value="星形线">星形线</option>
-        <option value="二阶贝塞尔">二阶贝塞尔</option>
-        <option value="三阶贝塞尔">三阶贝塞尔</option>
-      </select>
       <button
         type="button"
         onClick={() => {
-          drawType();
+          draw();
         }}
       >
-        绘制图形或曲线
+        绘制不规则图形
       </button>
     </div>
   );
 };
-export default DrawType;
+export default Irregular;

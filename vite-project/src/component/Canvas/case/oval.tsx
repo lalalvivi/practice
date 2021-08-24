@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { parametric } from "../tool/parametric";
+import { parametric } from "../../tool/parametric";
 const Oval = (props: any) => {
   const { ctx, canvasAll, turn, changeTurn } = props;
 

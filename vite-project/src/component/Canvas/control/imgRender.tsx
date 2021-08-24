@@ -1,4 +1,4 @@
-import { newVector } from "../tool/newVector";
+import { newVector } from "../../tool/newVector";
 // 向量
 // const vPosition = (
 //   sw: number,

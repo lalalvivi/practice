@@ -13,6 +13,7 @@
     "react-router-dom": "^5.2.0",
     "sass": "^1.38.0",
     "scss": "^0.2.4",
+    "tess2": "^1.0.0",
     "yarn": "^1.22.11"
   },
   "devDependencies": {

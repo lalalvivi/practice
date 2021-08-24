@@ -1,6 +1,6 @@
 import { endianness } from "os";
 import React, { useEffect, useMemo } from "react";
-import { parametric } from "../tool/parametric";
+import { parametric } from "../../tool/parametric";
 const Triangulations = (props: any) => {
   const { ctx, canvasAll, turn, changeTurn } = props;
 
@@ -100,6 +100,8 @@ const Triangulations = (props: any) => {
 
   function isPointInPath(ctx: any, x: any, y: any) {
     const cloned = ctx.canvas.cloneNode().getContext("2d");
+    console.log(cloned);
+
     cloned.translate(0.5 * canvas.width, 0.5 * canvas.height);
     cloned.scale(1, -1);
     let ret = 0;

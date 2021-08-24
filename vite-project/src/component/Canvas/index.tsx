@@ -6,27 +6,27 @@ import React, {
   useReducer,
 } from "react";
 import "./canvas.scss";
-import Color from "../attribute/color";
-import Dotted from "../attribute/dotted";
-import LineStyle from "../attribute/lineStyle";
-import Blur from "../attribute/blur";
-import TextStyle from "../attribute/textStyle";
-import Scale from "../attribute/scale";
-import Rotate from "../attribute/rotate";
-import Alpha from "../attribute/alpha";
-import Source from "../attribute/source";
-import Origin from "../attribute/origin";
-import ImgStyle from "../attribute/imgStyle";
-import Tangle from "../case/tangle";
-import Line from "../case/line";
-import Arc from "../case/arc";
-import Quadratic from "../case/quadratic";
-import Bezier from "../case/bezier";
-import PathLine from "../case/pathLine";
-import TextContent from "../case/text";
-import ImgContent from "../case/img";
-import ClearAll from "../case/clearAll";
-import ChooseColor from "../attribute/chooseColor";
+import Color from "./attribute/color";
+import Dotted from "./attribute/dotted";
+import LineStyle from "./attribute/lineStyle";
+import Blur from "./attribute/blur";
+import TextStyle from "./attribute/textStyle";
+import Scale from "./attribute/scale";
+import Rotate from "./attribute/rotate";
+import Alpha from "./attribute/alpha";
+import Source from "./attribute/source";
+import Origin from "./attribute/origin";
+import ImgStyle from "./attribute/imgStyle";
+import Tangle from "./case/tangle";
+import Line from "./case/line";
+import Arc from "./case/arc";
+import Quadratic from "./case/quadratic";
+import Bezier from "./case/bezier";
+import PathLine from "./case/pathLine";
+import TextContent from "./case/text";
+import ImgContent from "./case/img";
+import ClearAll from "./case/clearAll";
+import ChooseColor from "./attribute/chooseColor";
 import {
   imgReducer,
   imgState,
@@ -35,10 +35,10 @@ import {
   textReducer,
   textState,
 } from "../initState";
-import Rect from "../case/rect";
-import Tree from "../case/tree";
-import Oval from "../case/oval";
-import Triangulations from "../case/triangluations";
+import Rect from "./case/rect";
+import Tree from "./case/tree";
+import Oval from "./case/oval";
+import Triangulations from "./case/triangluations";
 export const appContext = createContext({});
 function Canvas() {
   const [state, dispatch] = useReducer(reducer, initState);

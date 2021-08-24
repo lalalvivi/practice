@@ -4,12 +4,17 @@ import Combine from "./combine";
 import DrawShape from "./drawShape";
 import DrawType from "./drawType";
 import Grad from "./grad";
+import Irregular from "./irregular";
 import MouseDraw from "./mouseDraw";
 import Progress from "./progress";
 import "./webgl.scss";
 export default memo(function Webgl() {
   const canvasWebgl = React.useRef<HTMLCanvasElement>(null);
   const [drawN, setDrawN] = useState<number>(3);
+  const [type, setType] = useState<string>("椭圆");
+  const changeType = useCallback((code: string) => {
+    setType(code);
+  }, []);
   const changeDrawN = useCallback((code: number) => {
     setDrawN(code);
   }, []);
@@ -26,7 +31,12 @@ export default memo(function Webgl() {
           changeDrawN={changeDrawN}
           canvasWebgl={canvasWebgl}
         />
-        <DrawType canvasWebgl={canvasWebgl}></DrawType>
+        <DrawType
+          type={type}
+          changeType={changeType}
+          canvasWebgl={canvasWebgl}
+        ></DrawType>
+        <Irregular canvasWebgl={canvasWebgl}></Irregular>
       </div>
       <div className="right">
         <canvas

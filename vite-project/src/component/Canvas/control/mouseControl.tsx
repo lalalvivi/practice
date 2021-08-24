@@ -6,14 +6,14 @@ import {
   rgba,
   drawBorder,
   drawImg,
-} from "../control/imgRender";
+} from "./imgRender";
 import {
   acrossScale,
   centerScale,
   controlChange,
   controlArea,
   controlTRotate,
-} from "../control/controlStyle";
+} from "./controlStyle";
 function MouseControl(
   name: string,
   changeControlRotate: Function,
