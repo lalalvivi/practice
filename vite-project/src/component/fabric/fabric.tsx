@@ -1,8 +1,7 @@
-import React, { useMemo, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./mouse.scss";
 let fabric = window.fabric;
 import { Checkbox, Row } from "antd";
-import Filter from "./filter";
 function Fabric() {
   const [status, setStatus] = useState<boolean>(true);
   const [filterValues, setFilterValues] = useState<any>([]);

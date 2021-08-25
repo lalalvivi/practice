@@ -53,7 +53,7 @@ const AnimationDraw: React.FC<childProps> = (props) => {
         0.0, 0.0, 1.0
       );
       vec3 translate = randomTranslate * vec3(a_Position, 1.0);
-      vec3 pos= randomTranslate*translateMatrix*scaleMatrix * rotateMatrix* vec3(a_Position, 1.0) ;
+      vec3 pos= randomTranslate*translateMatrix* rotateMatrix*scaleMatrix * vec3(a_Position, 1.0) ;
       // vec3 pos= skewMatrix* vec3(a_Position, 1.0) ;
       gl_Position = vec4(pos, 1.0); // 设置顶点的位置
       v_texCoord = a_texCoord;
@@ -67,8 +67,11 @@ const AnimationDraw: React.FC<childProps> = (props) => {
     #endif
     varying vec2 v_texCoord;
     uniform sampler2D u_texture;
+    varying float vp;
     void main() {
-      gl_FragColor = texture2D(u_texture, v_texCoord); // 设置顶点的颜色
+      vec4 texture = texture2D(u_texture, v_texCoord); // 设置顶点的颜色
+      texture.a=1.0-vp;
+      gl_FragColor = texture;
     }
     `;
   // 创建一个program（相当于着色器的上下文）

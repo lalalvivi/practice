@@ -1,6 +1,7 @@
+import { Interface } from "node:readline";
 import React, { useEffect, useState } from "react";
 import { childProps } from "./receive";
-const Arc = (props: any) => {
+const Arc = (props: childProps) => {
   const { ctx, canvasAll, state, turn, changeTurn } = props;
   const {
     rotate,

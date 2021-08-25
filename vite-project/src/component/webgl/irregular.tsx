@@ -1,4 +1,5 @@
 import React from "react";
+import Tess2 from "tess2";
 import { newVector } from "../tool/newVector";
 import { isPointInPath } from "./tool/isPoint";
 interface childProps {
@@ -72,6 +73,7 @@ const Irregular: React.FC<childProps> = (props) => {
       polySize: 3,
       vertexSize: 2,
     });
+
     let triangles = [];
     for (var i = 0; i < res.elements.length; i += 3) {
       const a = res.elements[i];
@@ -84,10 +86,9 @@ const Irregular: React.FC<childProps> = (props) => {
       ]);
     }
     let a = triangles.flat();
-    triangles = triangles.flat().flat();
-    const triangles1 = [-15, -0.2, -0.3, 0.6, 0.7, 0.8];
+    triangles = a.flat();
+    console.log(res, a);
     const vertices = new Float32Array(triangles);
-    const vertices1 = new Float32Array(triangles1);
     // 创建一个缓存对象，用于存放顶点数据
     var vertexBuffer = context.createBuffer();
     // 绑定缓存对象
@@ -103,13 +104,12 @@ const Irregular: React.FC<childProps> = (props) => {
     context.enableVertexAttribArray(a_Position);
     const cellsBuffer = context.createBuffer();
     context.bindBuffer(context.ARRAY_BUFFER, cellsBuffer);
-    context.bufferData(context.ARRAY_BUFFER, vertices1, context.STATIC_DRAW);
     // 每一次重绘时的背景色
     context.clearColor(0.0, 0.0, 0.0, 0.0);
     // 清除 <canvas>
     context.clear(context.COLOR_BUFFER_BIT);
     // 画点
-    context.drawArrays(context.TRIANGLES, 0, triangles.length / 2);
+    context.drawArrays(context.TRIANGLES, 0, triangles.length);
     canvas.addEventListener("mousemove", tri);
     function tri(evt: any) {
       const { left, top } = canvas.getBoundingClientRect();

@@ -55,7 +55,6 @@ const Grad: React.FC<childProps> = (props: any) => {
       gl_FragColor.a = 1.0;
   }
 `;
-
   function grad() {
     const canvas = canvasWebgl.current;
     const renderer = new GlRenderer(canvas);

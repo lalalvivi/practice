@@ -48,7 +48,7 @@ function Canvas() {
   const [active, setActive] = useState<boolean>(false);
   const selectedColor = React.useRef<HTMLDivElement>(null);
   const canvasAll = React.useRef<HTMLCanvasElement>(null);
-  const [ctx, setCtx] = useState<any>();
+  const [ctx, setCtx] = useState<CanvasRenderingContext2D | null | undefined>();
   const changeTurn = useCallback((code: string) => {
     setTurn(code);
   }, []);

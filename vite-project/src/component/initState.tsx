@@ -19,8 +19,8 @@ const initState = {
   sliderY1: 200,
   scaleAll: 1,
 };
-
-function reducer(state: Object, action: any) {
+import { stateProps } from "../component/Canvas/case/receive";
+function reducer(state: stateProps, action: any) {
   switch (action.type) {
     case "alpha":
       return {

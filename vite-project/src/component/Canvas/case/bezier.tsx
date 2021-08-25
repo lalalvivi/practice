@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-const Bezier = (props: any) => {
+import { childProps } from "./receive";
+const Bezier = (props: childProps) => {
   const { ctx, canvasAll, state, turn, changeTurn } = props;
   const {
     rotate,

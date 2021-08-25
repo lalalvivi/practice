@@ -1,27 +1,30 @@
 // 三角形、矩形、直线、圆弧、贝塞尔、路径
 interface childProps{
     canvasAll:React.RefObject<HTMLCanvasElement>,
-    rotate:number,
-    globalAlpha:number,
-    color:string,
-    colors:string|undefined,
-    shadowOffsetX:number,
-    shadowOffsetY:number,
-    shadowBlur:number,
-    shadowColor:string,
-    linewidth:number,
-    lineJoin:string,
-    lineCap:string,
-    operation:string,
-    lineDashx:number,
-    lineDashy:number,
-    lineDashOffset:number,
-    sliderx1:number,
-    slidery1:number,
-    scaleAll:number,
     turn:string,
     changeTurn:Function,
     ctx:any,
+    state:stateProps
+}
+interface stateProps{
+  rotate:number,
+  globalAlpha:number,
+  color:string,
+  colors:string|undefined,
+  shadowOffsetX:number,
+  shadowOffsetY:number,
+  shadowBlur:number,
+  shadowColor:string,
+  lineWidth:number,
+  lineJoin:string,
+  lineCap:string,
+  operation:string,
+  lineDashx:number,
+  lineDashy:number,
+  lineDashOffset:number,
+  sliderX1:number,
+  sliderY1:number,
+  scaleAll:number,
 }
 // 图片
 interface imgProps {
@@ -110,4 +113,4 @@ interface clearProps{
   }
 //   鼠标控制参数
 
-export  type {childProps,imgProps,textProps,clearProps};
+export  type {childProps,imgProps,textProps,clearProps,stateProps};
