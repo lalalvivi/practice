@@ -54,7 +54,7 @@ const AnimationDraw: React.FC<childProps> = (props) => {
         0.0, 0.0, 1.0
       );
       vec3 translate = randomTranslate * vec3(a_Position, 1.0);
-      vec3 pos= randomTranslate*skewMatrix*translateMatrix* rotateMatrix*scaleMatrix * vec3(a_Position, 1.0) ;
+      vec3 pos= randomTranslate*translateMatrix* rotateMatrix*scaleMatrix * vec3(a_Position, 1.0) ;
       // vec3 pos= skewMatrix* vec3(a_Position, 1.0) ;
       gl_Position = vec4(pos, 1.0); // 设置顶点的位置
       v_texCoord = a_texCoord;

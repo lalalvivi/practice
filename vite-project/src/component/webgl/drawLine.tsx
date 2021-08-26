@@ -53,6 +53,7 @@ const DrawLine: React.FC<childProps> = (props) => {
     for (let i = 0; i < points.length; i += 2) {
       p.push(new Vec2(points[i], points[i + 1]));
     }
+
     let position = extrudePolyline(p, { thickness: thickness }).position;
     for (let i = 0; i < position.length; i += 2) {
       position[i] = position[i] / canvas.width - 1;
