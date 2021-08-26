@@ -1,5 +1,4 @@
 import React from "react";
-import "./filter.scss";
 function Filter() {
   const canvasWebgl = React.useRef<HTMLCanvasElement>(null);
   let imgContent =
@@ -237,40 +236,46 @@ function Filter() {
         >
           添加图片
         </button>
-        <div>
+        <div className="slider">
           <label>饱和度:</label>
           <input type="range" defaultValue="0" onChange={sChange} />
         </div>
 
-        <div>
+        <div className="slider">
           <label>R:</label>
           <input type="range" defaultValue="0" onChange={rChange} />
         </div>
 
-        <div>
+        <div className="slider">
           <label>G:</label>
           <input type="range" defaultValue="0" onChange={gChange} />
         </div>
 
-        <div>
+        <div className="slider">
           <label>B:</label>
           <input type="range" defaultValue="0" onChange={bChange} />
         </div>
-        <div>
+        <div className="check">
           <input type="checkbox" onChange={bwChange} />
           <span>黑白滤镜</span>
         </div>
-        <div>
+        <div className="check">
           <input type="checkbox" onChange={reverseChange} />
           <span>反向滤镜</span>
         </div>
-        <div>
+        <div className="check">
           <input type="checkbox" onChange={oldChange} />
           <span>怀旧滤镜</span>
         </div>
       </div>
       <div className="right">
-        <canvas id="canvas" width="400" height="400" ref={canvasWebgl}></canvas>
+        <canvas
+          id="canvas"
+          className="canvas"
+          width="800"
+          height="800"
+          ref={canvasWebgl}
+        ></canvas>
       </div>
     </div>
   );

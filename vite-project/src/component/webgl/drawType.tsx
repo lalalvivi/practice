@@ -77,7 +77,6 @@ const DrawType: React.FC<childProps> = (props) => {
   }
   return (
     <div>
-      <span>选择图形：</span>
       <select value={type} onChange={(e) => changeType(e.target.value)}>
         <option value="椭圆">椭圆</option>
         <option value="抛物线">抛物线 </option>

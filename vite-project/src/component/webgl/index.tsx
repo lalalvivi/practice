@@ -58,8 +58,8 @@ export default memo(function Webgl() {
       </div>
       <div className="right">
         <canvas
+          className="canvas"
           ref={canvasWebgl}
-          id="canvas1"
           width="800"
           height="800"
         ></canvas>

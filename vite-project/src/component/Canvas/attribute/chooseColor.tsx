@@ -48,6 +48,7 @@ const ChooseColor = (props: any) => {
   return (
     <div>
       <button
+        className="chooseColor"
         type="button"
         onClick={() => {
           changeActive(true);

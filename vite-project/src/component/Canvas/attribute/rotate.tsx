@@ -2,7 +2,7 @@ import React from "react";
 const Rotate = (props: any) => {
   const { dispatch, state } = props;
   return (
-    <div>
+    <div className="slider">
       <span>旋转：</span>
       <input
         value={state.rotate}

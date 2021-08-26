@@ -387,8 +387,8 @@ function Fabric() {
     canvas.isDrawingMode = true;
   }
   return (
-    <div className="oButton">
-      <div className="left1">
+    <div className="all">
+      <div className="left">
         <button
           type="button"
           className="rect"
@@ -467,7 +467,7 @@ function Fabric() {
           <option value="CircleBrush">Circle </option>
           <option value="SprayBrush">Spray</option>
         </select>
-        <span>大小: </span>
+        <span>大小： </span>
         <input
           type="range"
           defaultValue={lineSize}
@@ -478,22 +478,24 @@ function Fabric() {
           }}
           step="0.1"
         />
-        <span>颜色: </span>
-        <input
-          type="color"
-          defaultValue={lineColor}
-          onChange={(e) => {
-            lineColor = e.target.value;
-          }}
-        />
-        <span>阴影颜色: </span>
-        <input
-          type="color"
-          defaultValue={shadowColor}
-          onChange={(e) => {
-            shadowColor = e.target.value;
-          }}
-        />
+        <div className="color">
+          <span>颜色： </span>
+          <input
+            type="color"
+            defaultValue={lineColor}
+            onChange={(e) => {
+              lineColor = e.target.value;
+            }}
+          />
+          <span>阴影颜色： </span>
+          <input
+            type="color"
+            defaultValue={shadowColor}
+            onChange={(e) => {
+              shadowColor = e.target.value;
+            }}
+          />
+        </div>
         <button
           type="button"
           onClick={() => {
@@ -552,7 +554,12 @@ function Fabric() {
         </Checkbox.Group>
       </div>
       <div className="right">
-        <canvas id="canvas" width="800" height="800" ref={canvasWebgl}></canvas>
+        <canvas
+          className="canvas"
+          width="800"
+          height="800"
+          ref={canvasWebgl}
+        ></canvas>
       </div>
     </div>
   );

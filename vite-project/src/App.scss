@@ -1,0 +1,115 @@
+.all {
+  margin-left: 8px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  button {
+    width: 220px;
+    margin-bottom: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 0.5em 1em;
+    background-color: #7fb1e0;
+    color: #fff;
+    border: 1px solid #999;
+    border: none transparent;
+    text-decoration: none;
+    border-radius: 5px;
+    height: 30px;
+  }
+  input {
+    width: 190px;
+    margin-bottom: 8px;
+    border: 1px solid #7fb1e0;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 0.5em 1em;
+  }
+  select {
+    margin-right: 5px;
+    border: 1px solid #7fb1e0;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 0.5em 1em;
+  }
+  .slider {
+    display: flex;
+    align-items: center;
+  }
+  .left {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    .slider {
+      label {
+        width: 60px;
+      }
+      input {
+        width: 130px;
+      }
+    }
+    .check {
+      margin-left: 55px;
+      input {
+        width: 20px;
+      }
+    }
+  }
+  .right {
+    width: 100%;
+    margin-right: 10px;
+    .rightContent {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      .chooseColor {
+        width: 100px;
+        margin-left: 5px;
+      }
+      input {
+        width: 100px;
+        height: 20px;
+        line-height: 20px;
+        margin-right: 5px;
+      }
+    }
+    .canvas {
+      background-color: white;
+      border: 2px solid powderblue;
+      border-radius: 5px;
+    }
+    .canvasAll {
+      width: 100%;
+      //   display: flex;
+      //   justify-content: center;
+      background-color: rgb(216, 212, 212);
+      .canvas {
+        background-color: white;
+        border: 2px solid powderblue;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+.route {
+  margin: 8px 0;
+  a {
+    width: 150px;
+    height: 40px;
+    color: #fff;
+    text-align: center;
+    display: inline;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background: pink;
+    text-decoration: none;
+    line-height: 40px;
+    margin-left: 8px;
+    padding: 8px;
+  }
+}

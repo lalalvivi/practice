@@ -1,15 +1,21 @@
-.oButton {
+.all {
   display: flex;
-  button,
-  input {
-    width: 100px;
-    height: 28px;
-  }
-  .left1 {
+  .left {
     width: 100px;
     display: flex;
     flex-direction: column;
     margin-right: 10px;
+    select {
+      margin-top: 5px;
+    }
+    .color {
+      input {
+        width: 220px;
+      }
+    }
+    .ant-checkbox-input {
+      width: 20px;
+    }
   }
 }
 .rect,

@@ -2,7 +2,7 @@ import React from "react";
 const Alpha = (props: any) => {
   const { dispatch, state } = props;
   return (
-    <div>
+    <div className="slider">
       <span>透明度：</span>
       <input
         value={state.alpha}

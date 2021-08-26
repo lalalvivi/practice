@@ -2,7 +2,7 @@ import React from "react";
 const Scale = (props: any) => {
   const { dispatch, state } = props;
   return (
-    <div>
+    <div className="slider">
       <span>缩放：</span>
       <input
         type="range"
