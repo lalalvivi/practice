@@ -40,7 +40,7 @@ const DrawLine: React.FC<childProps> = (props) => {
     context.compileShader(shader);
     return shader;
   }
-  //绘制正n边形
+  //绘制带有宽度的线段
   function draw() {
     var canvas: any = canvasWebgl.current;
     canvas.onmousedown = null;
