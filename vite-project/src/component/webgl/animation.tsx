@@ -19,6 +19,7 @@ const AnimationDraw: React.FC<childProps> = (props) => {
       void main() {
         float p = min(1.0, u_time / u_duration);
           float rad = u_rotation + 3.14 * 10.0 * p;
+          // float rad = u_rotation + 3.14 * 10.0 * p;
           float scale = u_scale * p * (2.0 - p);
           vec2 offset = 2.0 * u_dir * p * p;
         // 平移矩阵
@@ -41,8 +42,8 @@ const AnimationDraw: React.FC<childProps> = (props) => {
         );
         //扭曲矩阵
         mat3 skewMatrix = mat3(
-          1.0, tan(rad), 0.0,
-          tan(rad), 1.0, 0.0,
+          1.0, tan(p), 0.0,
+          tan(p), 1.0, 0.0,
           0.0, 0.0, 1.0
         );
 
@@ -53,7 +54,7 @@ const AnimationDraw: React.FC<childProps> = (props) => {
         0.0, 0.0, 1.0
       );
       vec3 translate = randomTranslate * vec3(a_Position, 1.0);
-      vec3 pos= randomTranslate*translateMatrix* rotateMatrix*scaleMatrix * vec3(a_Position, 1.0) ;
+      vec3 pos= randomTranslate*skewMatrix*translateMatrix* rotateMatrix*scaleMatrix * vec3(a_Position, 1.0) ;
       // vec3 pos= skewMatrix* vec3(a_Position, 1.0) ;
       gl_Position = vec4(pos, 1.0); // 设置顶点的位置
       v_texCoord = a_texCoord;
