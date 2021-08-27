@@ -96,7 +96,13 @@ export function scale(out: number[], a: number[], b: number) {
     out[1] = a[1] * b;
     return out;
 };
-
+export function rotate(out: number[], a: number[], b: number) {
+    const c = Math.cos(b),
+    s = Math.sin(b);
+    out[0] =  a[0] * c + a[1] * -s;
+    out[1] = a[0] * s + a[1] * c;
+    return out;
+};
 /**
  * Calculates the euclidian distance between two vec2's
  *
@@ -133,6 +139,12 @@ export function length(a: any[]) {
     var x = a[0],
         y = a[1];
     return Math.sqrt(x * x + y * y);
+};
+// 夹角
+export function dir(a: any[]) {
+    var x = a[0],
+        y = a[1];
+    return Math.atan2(y, x)
 };
 
 /**
@@ -246,6 +258,14 @@ export function transformMat2(out: number[], a: any[], m: number[]) {
         y = a[1];
     out[0] = m[0] * x + m[2] * y;
     out[1] = m[1] * x + m[3] * y;
+    return out;
+};
+// 平移
+export function transformMat(out: number[], a: any[], m: number[]) {
+    var x = a[0],
+        y = a[1];
+    out[0] = m[0] + x ;
+    out[1] = m[1] + y;
     return out;
 };
 

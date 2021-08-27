@@ -65,7 +65,10 @@ export class Vec2 extends Array {
   len() {
     return Vec2Func.length(this);
   }
-
+  // 夹角
+  dir() {
+    return Vec2Func.dir(this);
+  }
   distance(v: Vec2) {
     if (v) return Vec2Func.distance(this, v);
     else return Vec2Func.length(this);
@@ -94,6 +97,10 @@ export class Vec2 extends Array {
     Vec2Func.scale(this, this, v);
     return this;
   }
+  rotate(v: number) {
+    Vec2Func.rotate(this, this, v);
+    return this;
+  }
 
   normalize() {
     Vec2Func.normalize(this, this);
@@ -107,7 +114,11 @@ export class Vec2 extends Array {
   equals(v: Vec2) {
     return Vec2Func.exactEquals(this, v);
   }
-
+  // 平移
+  applyMatrix2(mat: number[]) {
+    Vec2Func.transformMat(this, this, mat);
+    return this;
+  }
   applyMatrix3(mat3: Vec2) {
     Vec2Func.transformMat3(this, this, mat3);
     return this;
