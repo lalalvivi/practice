@@ -40,6 +40,7 @@ import Tree from "./case/tree";
 import Oval from "./case/oval";
 import Triangulations from "./case/triangluations";
 import Random from "./case/random";
+import Particles from "./case/particle";
 export const appContext = createContext({});
 function Canvas() {
   const [state, dispatch] = useReducer(reducer, initState);
@@ -148,6 +149,12 @@ function Canvas() {
           turn={turn}
           changeTurn={changeTurn}
         ></Random>
+        <Particles
+          ctx={ctx}
+          canvasAll={canvasAll}
+          turn={turn}
+          changeTurn={changeTurn}
+        ></Particles>
         <TextContent
           ctx={ctx}
           canvasAll={canvasAll}
