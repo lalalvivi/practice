@@ -14,8 +14,6 @@ const ChooseColor = (props: any) => {
     choose();
   }, [active]);
   function choose() {
-    console.log(active);
-
     if (active) {
       function pick(event: any, destination: any) {
         var x = event.layerX;

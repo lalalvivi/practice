@@ -3,7 +3,11 @@ import React, {
   useEffect,
   useCallback,
   createContext,
+  forwardRef,
+  useRef,
+  useImperativeHandle,
   useReducer,
+  useDebugValue,
 } from "react";
 import "./canvas.scss";
 import Color from "./attribute/color";
@@ -62,7 +66,7 @@ function Canvas() {
       setCtx(init());
     }
     //处理异步数据
-  }, [ctx, canvasAll, turn, active, state, txState, imgState]);
+  }, []);
   function init() {
     let canvas = canvasAll.current;
     let ctx = canvas?.getContext("2d");
@@ -72,6 +76,11 @@ function Canvas() {
   return (
     <div className="all">
       <div className="left">
+        <button
+          onClick={() => {
+            console.log(2412);
+          }}
+        ></button>
         <Rect
           ctx={ctx}
           canvasAll={canvasAll}

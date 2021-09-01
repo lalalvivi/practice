@@ -1,5 +1,5 @@
 import { Interface } from "node:readline";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { childProps } from "./receive";
 const Arc = (props: childProps) => {
   const { ctx, canvasAll, state, turn, changeTurn } = props;

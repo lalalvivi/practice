@@ -242,7 +242,6 @@ function Fabric() {
           item.filters = [];
 
           for (var i of filterValues) {
-            console.log(i);
             switch (i) {
               case "Saturation":
                 item.filters.push(
@@ -271,7 +270,6 @@ function Fabric() {
                     noise: 0,
                   })
                 );
-                console.log(41);
 
                 break;
             }
@@ -479,7 +477,7 @@ function Fabric() {
           step="0.1"
         />
         <div className="color">
-          <span>颜色： </span>
+          <div>颜色： </div>
           <input
             type="color"
             defaultValue={lineColor}
@@ -487,7 +485,7 @@ function Fabric() {
               lineColor = e.target.value;
             }}
           />
-          <span>阴影颜色： </span>
+          <div>阴影颜色： </div>
           <input
             type="color"
             defaultValue={shadowColor}

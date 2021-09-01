@@ -7,7 +7,9 @@ import DrawType from "./drawType";
 import Grad from "./grad";
 import Irregular from "./irregular";
 import MouseDraw from "./mouseDraw";
+import NewRandom from "./newRandom";
 import Progress from "./progress";
+import Random from "./radom";
 import "./webgl.scss";
 export default memo(function Webgl() {
   const canvasWebgl = React.useRef<HTMLCanvasElement>(null);
@@ -55,6 +57,8 @@ export default memo(function Webgl() {
           thickness={thickness}
           changeThickness={changeThickness}
         ></DrawLine>
+        <Random canvasWebgl={canvasWebgl}></Random>
+        <NewRandom canvasWebgl={canvasWebgl}></NewRandom>
       </div>
       <div className="right">
         <canvas

@@ -78,8 +78,8 @@ const Random = (props: any) => {
 
         ctx.restore();
       }
-      setInterval(move, 0.01);
-      // requestAnimationFrame(move);
+      // setInterval(move, 0.01);
+      requestAnimationFrame(move);
     }
     move();
     function regularShape(x: number, y: number, r: number, edges = 3) {

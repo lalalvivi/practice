@@ -46,7 +46,6 @@ const DrawShape: React.FC<childProps> = (props) => {
     // b.map((item: any) => {
     //   return (item = 2);
     // });
-    console.log(a);
 
     var canvas: any = canvasWebgl.current;
     canvas.onmousedown = null;
@@ -71,7 +70,6 @@ const DrawShape: React.FC<childProps> = (props) => {
         vertices[i + 1] = r * Math.sin(angle);
         angle += stepAngle;
       }
-      console.log(vertices);
     }
 
     // 创建一个缓存对象，用于存放顶点数据

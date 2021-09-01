@@ -202,7 +202,6 @@ const AnimationDraw: React.FC<childProps> = (props) => {
       moveX = move;
       moveY = move;
       last = now;
-      console.log(ANGLE);
       var radian = (Math.PI * ANGLE) / 180.0; // 角度转弧度
       var cosB = Math.cos(radian),
         sinB = Math.sin(radian);

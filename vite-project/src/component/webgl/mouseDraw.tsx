@@ -70,7 +70,6 @@ const MouseDraw: React.FC<childProps> = (props) => {
     var x: number = ev.clientX; //鼠标点击处的X坐标
     var y: number = ev.clientY; //鼠标点击处的Y坐标
     var rect = ev.target.getBoundingClientRect();
-    console.log(x, y, rect.left);
     g_points = [];
     //将浏览器绘图区坐标系下的坐标转换为webgl坐标系下的坐标
     x = (x - rect.left - canvas.width / 2) / (canvas.width / 2);

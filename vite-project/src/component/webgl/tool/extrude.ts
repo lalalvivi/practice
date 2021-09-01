@@ -73,7 +73,6 @@ export function extrudePolyline(points:any, {thickness = 10,lineCap = 'butt'} = 
             let v3=new Vec2().add(points[i],va );
             let v4=(new Vec2()).sub(points[i], va);
             let v41=(new Vec2()).sub(points[points.length - 1], v0);
-            console.log(v31,1,v3,2,v41,3,v4);
             outerSide.push(new Vec2().add(new Vec2().sub(v31,v3).normalize().scale(halfThick),v31));
             innerSide.push(new Vec2().add(new Vec2().sub(v41,v4).normalize().scale(halfThick),v41));
             break;  

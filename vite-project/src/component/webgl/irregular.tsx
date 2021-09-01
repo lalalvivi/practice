@@ -87,7 +87,6 @@ const Irregular: React.FC<childProps> = (props) => {
     }
     let a = triangles.flat();
     triangles = a.flat();
-    console.log(res, a);
     const vertices = new Float32Array(triangles);
     // 创建一个缓存对象，用于存放顶点数据
     var vertexBuffer = context.createBuffer();
